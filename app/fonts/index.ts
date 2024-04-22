@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Inter } from "next/font/google";
+import {Inter, Montserrat} from "next/font/google";
 
 export const sfPro = localFont({
   src: "./SF-Pro-Display-Medium.otf",
@@ -9,4 +9,14 @@ export const sfPro = localFont({
 export const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+export const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin", "cyrillic"],
+});
+
+export const julius = localFont({
+  src: "./JuliusSansOne-Regular.ttf",
+  variable: "--font-julius",
 });

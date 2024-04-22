@@ -1,10 +1,9 @@
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
+import {Analytics} from "@vercel/analytics/react";
 import cx from "classnames";
-import { sfPro, inter } from "./fonts";
+import {inter, julius, montserrat} from "./fonts";
 import Nav from "@/components/layout/nav";
-import Footer from "@/components/layout/footer";
-import { Suspense } from "react";
+import {Suspense} from "react";
 
 export const metadata = {
   title: "Precedent - Building blocks for your Next.js project",
@@ -21,15 +20,15 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cx(sfPro.variable, inter.variable)}>
-        <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
+      <body className={cx(inter.variable, julius.variable, montserrat.variable, "text-c-text-light z-1")}>
+        <div className="fixed h-screen w-full from-indigo-50 via-white to-cyan-100" />
         <Suspense fallback="...">
           <Nav />
         </Suspense>
-        <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
+        <main className="flex min-h-screen w-full flex-col items-center justify-center bg-c-bg-1">
           {children}
         </main>
-        <Footer />
+        {/*<Footer />*/}
         <Analytics />
       </body>
     </html>
