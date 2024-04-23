@@ -47,6 +47,7 @@ model Work {
 model Service {
   id          Int            @id @default(autoincrement())
   category    Category       @relation("ServiceCategories", fields: [categoryId], references: [id])
+  title       String
   description String
   icon        String?        @default("")
   prices      ServicePrice[]
