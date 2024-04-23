@@ -7,7 +7,7 @@ export default async function Main() {
         className={"absolute h-full object-cover object-right z-0"}
         width={3840}
         height={1960}
-        src={"/main/bg-main.png"}
+        src={"/main/bg-main@2x.png"}
         alt="Precedent Logo"
       />
     </div>
