@@ -6,37 +6,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-
 model Master {
-  id                    Int         @id @default(autoincrement())
-  rank                  Rank        @default(EXPERT)
-  works                 Work[]      @relation("MasterWorks")
-  photoUrl              String
-  name                  String
-  surname               String
-  description           String
+  id                     Int        @id @default(autoincrement())
+  rank                   Rank       @default(EXPERT)
+  works                  Work[]     @relation("MasterWorks")
+  photoUrl               String
+  name                   String
+  surname                String
+  description            String
   description_additional String
-  categories            Category[]  @relation("MasterCategories")
-  stars                 Int
-  cutsAmount            Int
-  rankId                Int
+  categories             Category[] @relation("MasterCategories")
+  stars                  Int
+  cutsAmount             Int
+  rankId                 Int
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
-  name  String
-  icon  String?  @default("")
-  masters Master[] @relation("MasterCategories")
+  id       Int       @id @default(autoincrement())
+  name     String
+  icon     String?   @default("")
+  masters  Master[]  @relation("MasterCategories")
   services Service[] @relation("ServiceCategories")
+  Work     Work[]
 }
 
 model Work {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   category    Category @relation(fields: [categoryId], references: [id])
   photoUrl    String
   description String
@@ -45,20 +45,20 @@ model Work {
 }
 
 model Service {
-  id          Int     @id @default(autoincrement())
-  category    Category @relation(fields: [categoryId], references: [id])
+  id          Int            @id @default(autoincrement())
+  category    Category       @relation("ServiceCategories", fields: [categoryId], references: [id])
   description String
-  icon        String?  @default("")
+  icon        String?        @default("")
   prices      ServicePrice[]
   categoryId  Int
 }
 
 model ServicePrice {
-  id       Int     @id @default(autoincrement())
-  value    Int
-  rank     Rank
-  rankId   Int
-  service  Service @relation(fields: [serviceId], references: [id])
+  id        Int     @id @default(autoincrement())
+  value     Int
+  rank      Rank
+  rankId    Int
+  service   Service @relation(fields: [serviceId], references: [id])
   serviceId Int
 }
 
