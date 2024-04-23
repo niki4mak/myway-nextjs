@@ -14,7 +14,8 @@ const LinkSolid = memo<LinkSolidProps>(({
                                             }) => {
   return (
     <Link
-      className={"flex items-center justify-center bg-c-primary px-6 py-1 rounded-2xl z-10 text-c-text-dark"}
+      className={`flex items-center justify-center bg-c-primary px-6 py-1 rounded-2xl z-10 text-c-text-dark
+      hover:bg-opacity-40 hover:text-c-text-light`}
       href={href}
     >
       {text}

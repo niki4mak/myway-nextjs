@@ -11,7 +11,7 @@ const NavLink = memo<INavItem>(({
   title
                                 }) => {
   return (
-    <Link href={href} className={"text-c-text-light"}>
+    <Link href={href} className={"text-c-text-light hover:text-c-primary"}>
       {title}
     </Link>
   );

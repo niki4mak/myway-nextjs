@@ -39,7 +39,8 @@ export default function NavBar() {
         className={"fixed top-0 w-full flex justify-center bg-transparent z-10"}
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between w-full">
-          <Link href="/" className="flex items-center font-display text-2xl">
+          <Link href="/" className={`flex items-center font-display text-2xl w-[200px] justify-center
+          hover:text-3xl transition-all`}>
             <p>MY WAY</p>
           </Link>
 

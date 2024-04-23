@@ -13,7 +13,8 @@ const ButtonTransparent = memo<ButtonTransparentProps>(({
                                                         }) => {
   return (
     <button
-      className={"flex items-center justify-center px-6 py-1 border-solid border border-c-primary rounded-2xl z-10 text-c-primary"}
+      className={`flex items-center justify-center px-6 py-1 border-solid border border-c-primary rounded-2xl z-10 text-c-primary
+      hover:bg-c-primary hover:text-c-text-dark`}
       onClick={clickHandler}
     >
       {text}
