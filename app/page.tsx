@@ -5,7 +5,7 @@ import Link from "next/link";
 export default async function Entry() {
   return (
     <div className={"w-screen h-screen top-0 left-0 grid grid-cols-2"}>
-      <Link href={"/home"} className={"relative h-full w-full flex items-center justify-center"}>
+      <Link href={"/home"} className={"relative h-full w-full flex items-center justify-center transition-all bg-black hover:bg-transparent"}>
         <div className={"absolute h-full right-0"}>
           <Image
             className={"h-full w-fit object-fit object-right z-0"}
@@ -17,7 +17,7 @@ export default async function Entry() {
         </div>
         <ButtonTransparent text={"Женское"}/>
       </Link>
-      <Link href={"/home"} className={"relative w-full h-full flex items-center justify-center"}>
+      <Link href={"/home"} className={"relative w-full h-full flex items-center justify-center transition-all bg-black hover:bg-transparent"}>
         <div className={"absolute h-full left-0"}>
           <Image
             className={"h-full w-fit object-cover object-left z-0"}

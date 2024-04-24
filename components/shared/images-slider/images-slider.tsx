@@ -25,7 +25,7 @@ const Slide = memo<ImageWithPath>(({
 }) => {
   return (
     <Link
-      className={""}
+      className={"box-border bg-black opacity-60 hover:opacity-100 hover:border hover:border-c-primary"}
       href={path}
     >
       <Image
