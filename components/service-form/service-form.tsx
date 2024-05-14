@@ -20,12 +20,12 @@ const ServiceForm = memo<ServiceFormProps>(({
   const panelClassName= "h-full m-4 overflow-auto flex flex-col gap-4";
 
   const TabsItems = categoriesWithServices?.map(it => (
-    <Tab className={"py-2"}>{it.name}</Tab>
+    <Tab className={"py-2"} key={`Tab-Category-${it.id}`}>{it.name}</Tab>
   ));
 
   const TabPanels = categoriesWithServices?.map(c => (
-    <TabPanel>
-      {c.services.map(s => <ServiceItem {...props} service={s}/>)}
+    <TabPanel key={`TabPanel-${c.id}`}>
+      {c.services.map(s => <ServiceItem {...props} service={s} key={`Service-${s.id}`}/>)}
     </TabPanel>
   ));
 
