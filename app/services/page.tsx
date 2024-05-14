@@ -1,9 +1,12 @@
 import {ServiceForm} from "@/components/service-form/service-form";
+import {categoriesWithServicesAndPrices} from "../../data/queries/service";
 
 export default async function Services() {
+  const data = await categoriesWithServicesAndPrices();
+
   return (
-    <div className={"w-screen h-screen top-0 left-0 grid place-content-center"}>
-      <ServiceForm />
+    <div className={"w-screen h-screen pt-[72px] px-[260px]"}>
+      <ServiceForm categoriesWithServices={data} />
     </div>
   );
 }

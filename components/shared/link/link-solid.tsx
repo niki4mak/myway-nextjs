@@ -20,8 +20,8 @@ const LinkSolid = memo<LinkSolidProps>(({
 
   return (
     <Link
-      className={cn(`flex border border-transparent items-center justify-center bg-c-primary px-6 py-1 rounded-2xl z-10 text-c-text-dark
-      hover:bg-c-text-light hover:bg-transparent hover:text-c-primary hover:border-c-primary`,
+      className={cn(`flex items-center justify-center bg-c-primary px-6 py-1 rounded-2xl z-10 text-c-text-dark border-b-[3px] border-b-c-primary
+      hover:bg-c-primary-darken hover:text-c-text-light`,
         isActive && activeClassName)}
       href={href}
     >
