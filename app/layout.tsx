@@ -21,7 +21,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cx(inter.variable, julius.variable, montserrat.variable, "text-c-text-light z-1")}>
-        <div className="fixed h-screen w-full from-indigo-50 via-white to-cyan-100" />
         <Suspense fallback="...">
           <Nav />
         </Suspense>

@@ -13,6 +13,7 @@ module.exports = {
         default: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       colors: {
+        'c-bg-dark': '#4F4F4F',
         'c-bg-1': '#444444',
         'c-bg-2': '#595959',
         'c-bg-3': '#B1B1B1',
