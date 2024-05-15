@@ -1,27 +1,19 @@
 "use client";
 
-import React, {memo, useState} from "react";
-import ReactDatePicker from  "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, {Dispatch, memo, SetStateAction, useState} from "react";
 import {PersonCard} from "@/components/shared/person-card/person-card";
 import ButtonSolid from "@/components/shared/button/button-solid";
-import { registerLocale } from  "react-datepicker";
-import { ru } from 'date-fns/locale/ru';
-registerLocale('ru', ru)
+import {DatePicker} from "@/components/shared/date-picker/date-picker";
 
 interface ISelectTimeTabProps {
-  
+  dateTime: Date | null;
+  setDateTime: Dispatch<SetStateAction<Date | null>>
 }
 
 const SelectTimeTab = memo<ISelectTimeTabProps>(({
-
+  dateTime,
+  setDateTime
 }) => {
-  const [dateTime, setDateTime] = useState<Date | null>(null);
-
-  const renderDayContents = (day: number, date: Date | undefined) => {
-    const tooltipText = `Tooltip for date: ${date}`;
-    return <div className={"text-l"} title={tooltipText}>{day}</div>;
-  };
 
   return (
     <div className={"grid grid-cols-[1fr_3fr] gap-4"}>
@@ -29,18 +21,7 @@ const SelectTimeTab = memo<ISelectTimeTabProps>(({
         <PersonCard/>
         <ButtonSolid text={"Выбрать услугу"}/>
       </div>
-      <div>
-        <ReactDatePicker
-          selected={dateTime}
-          onChange={(date) => setDateTime(date)}
-          showTimeSelect
-          inline
-          locale={"ru"}
-          timeFormat="HH:mm"
-          timeIntervals={60}
-          renderDayContents={renderDayContents}
-        />
-      </div>
+      <DatePicker dateTime={dateTime} setDateTime={setDateTime} />
     </div>
 )
   ;

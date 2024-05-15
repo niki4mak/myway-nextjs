@@ -1,11 +1,12 @@
 "use client";
 
-import {memo, useState} from "react";
+import React, {memo, useState} from "react";
 import {SelectPersonTab} from "@/components/booking/booking-form/select-person-tab";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {SelectServiceTab} from "@/components/booking/booking-form/select-service-tab";
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
 import {IWithCategoriesWithServicesAndPrices} from "../../../data/model/service";
+import {DatePicker} from "@/components/shared/date-picker/date-picker";
 
 const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
   categoriesWithServices
@@ -16,7 +17,7 @@ const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
 
   const [selectedMaster, setSelectedMaster] = useState<number>(-1);
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
-  const [selectedTime, setSelectedTime] = useState<number>(-1);
+  const [dateTime, setDateTime] = useState<Date | null>(null);
 
  return (
    <div className={"h-[80vh] w-full flex flex-col px-[260px] justify-center"}>
@@ -37,7 +38,10 @@ const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
          />
        </TabPanel>
        <TabPanel>
-         <SelectTimeTab />
+         <SelectTimeTab
+           dateTime={dateTime}
+           setDateTime={setDateTime}
+         />
        </TabPanel>
      </Tabs>
    </div>
