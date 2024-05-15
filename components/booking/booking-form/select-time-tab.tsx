@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {PersonCard} from "@/components/shared/person-card/person-card";
 import ButtonSolid from "@/components/shared/button/button-solid";
 import { registerLocale } from  "react-datepicker";
-import ru from 'date-fns/locale/ru';
+import { ru } from 'date-fns/locale/ru';
 registerLocale('ru', ru)
 
 interface ISelectTimeTabProps {
