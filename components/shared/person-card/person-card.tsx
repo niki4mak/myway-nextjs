@@ -3,9 +3,10 @@
 import { memo } from "react";
 import {Master} from "@prisma/client";
 import Image from "next/image";
+import {IYMaster} from "../../../data/model/yclients/model";
 
 interface IPersonCardProps {
-  master?: Master;
+  master?: IYMaster;
 }
 
 const PersonCard = memo<IPersonCardProps>(({
@@ -14,21 +15,21 @@ const PersonCard = memo<IPersonCardProps>(({
  return (
   <div className={"bg-[url('/icons/card-rectangle.svg')] bg-cover bg-center flex justify-between items-center rounded-3xl"}>
     <div className={"flex flex-col p-4"}>
-      <div className={""}>Никита</div>
-      <div className={""}>Все виды стрижек</div>
+      <div className={""}>{master?.name}</div>
+      <div className={""}>{master?.specialization}</div>
       <div className={"flex gap-1"}>
         <Image src="/icons/star.svg" alt="star" width={16} height={16}/>
-        <div>319</div>
+        <div>{master?.rating}</div>
       </div>
-      <div className={""}>~5000 сделаных стрижек</div>
+      <div className={""}>{`${master?.weight}~ сделаных стрижек`}</div>
     </div>
     <div className={"w-[135px]"}>
       <div className={"bg-c-bg-dark w-full h-0.8"} />
       <Image
         className={""}
-        src={"/person-card.png"}
-        width={271}
-        height={393}
+        src={master?.avatar || "/person-card.png"}
+        width={100}
+        height={100}
         alt={"Person"}
       />
     </div>

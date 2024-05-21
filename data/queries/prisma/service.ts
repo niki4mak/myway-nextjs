@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import {TCategoryWithServicesAndPrices} from "../model/service";
+import {TCategoryWithServicesAndPrices} from "../../model/prisma/service";
 
 const categoriesWithServicesAndPrices = async (): Promise<TCategoryWithServicesAndPrices[]> => await prisma.category.findMany({
   where: {

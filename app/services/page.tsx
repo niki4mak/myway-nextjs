@@ -1,5 +1,5 @@
 import {ServiceForm} from "@/components/service-form/service-form";
-import {categoriesWithServicesAndPrices} from "../../data/queries/service";
+import {categoriesWithServicesAndPrices} from "../../data/queries/prisma/service";
 
 export default async function Services() {
   const data = await categoriesWithServicesAndPrices();

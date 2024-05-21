@@ -5,11 +5,14 @@ import {SelectPersonTab} from "@/components/booking/booking-form/select-person-t
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {SelectServiceTab} from "@/components/booking/booking-form/select-service-tab";
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
-import {IWithCategoriesWithServicesAndPrices} from "../../../data/model/service";
-import {DatePicker} from "@/components/shared/date-picker/date-picker";
+import { IYBasicData } from "data/model/yclients/model";
 
-const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
-  categoriesWithServices
+interface IBookingFormProps {
+  data: IYBasicData;
+}
+
+const BookingForm = memo<IBookingFormProps>(({
+                                                                  data
                                                                 }) => {
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center"
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]"
@@ -20,7 +23,7 @@ const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
   const [dateTime, setDateTime] = useState<Date | null>(null);
 
  return (
-   <div className={"h-[80vh] w-full flex flex-col px-[260px] justify-center"}>
+   <div className={"h-[75vh] w-full flex flex-col justify-center"}>
      <Tabs className={"h-full"} selectedTabClassName={tabActiveClassname} selectedTabPanelClassName={panelClassName}>
        <TabList className={"grid grid-flow-col auto-cols-[1fr] text-center gap-4 px-4"}>
          <Tab className={tabClassname}>Специалисты</Tab>
@@ -28,11 +31,11 @@ const BookingForm = memo<IWithCategoriesWithServicesAndPrices>(({
          <Tab className={tabClassname}>Дата и время</Tab>
        </TabList>
        <TabPanel>
-         <SelectPersonTab />
+         <SelectPersonTab masters={data.masters} />
        </TabPanel>
        <TabPanel>
          <SelectServiceTab
-           categoriesWithServices={categoriesWithServices}
+           YCategoriesWithServices={data.services}
            selectedServices={selectedServices}
            selectCallBack={setSelectedServices}
          />
