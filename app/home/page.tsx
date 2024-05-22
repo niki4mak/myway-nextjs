@@ -10,6 +10,11 @@ export default async function Main() {
         src={"/main/bg-main@2x.png"}
         alt="Precedent Logo"
       />
+
+      <div className={"w-full ml-[100%] flex flex-col items-center"}>
+        <div className={"flex items-center font-display text-6xl justify-center"}>MY WAY</div>
+        <div className={"text-center"}>Стандарты высоко качества - то, чем мы <br/>руководствуемся</div>
+      </div>
     </div>
   );
 }

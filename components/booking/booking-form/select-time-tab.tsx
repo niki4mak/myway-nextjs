@@ -1,8 +1,6 @@
 "use client";
 
-import React, {Dispatch, memo, SetStateAction, useState} from "react";
-import {PersonCard} from "@/components/shared/person-card/person-card";
-import ButtonSolid from "@/components/shared/button/button-solid";
+import React, {Dispatch, memo, SetStateAction} from "react";
 import {DatePicker} from "@/components/shared/date-picker/date-picker";
 
 interface ISelectTimeTabProps {
@@ -11,20 +9,15 @@ interface ISelectTimeTabProps {
 }
 
 const SelectTimeTab = memo<ISelectTimeTabProps>(({
-  dateTime,
-  setDateTime
-}) => {
+                                                   dateTime,
+                                                   setDateTime
+                                                 }) => {
 
   return (
-    <div className={"grid grid-cols-[1fr_3fr] gap-4"}>
-      <div className={"flex flex-col gap-4 justify-between"}>
-        <PersonCard/>
-        <ButtonSolid text={"Выбрать услугу"}/>
-      </div>
-      <DatePicker dateTime={dateTime} setDateTime={setDateTime} />
+    <div className={"w-full"}>
+      <DatePicker dateTime={dateTime} setDateTime={setDateTime}/>
     </div>
-)
-  ;
+  );
 })
 SelectTimeTab.displayName = "SelectTimeTab"
 
