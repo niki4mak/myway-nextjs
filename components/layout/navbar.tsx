@@ -9,7 +9,7 @@ interface INavItem {
   title: string;
 }
 
-const navConfig: INavItem[] = [
+export const navConfig: INavItem[] = [
   {
     href: "/home",
     title: "Главная",

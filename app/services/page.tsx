@@ -5,7 +5,7 @@ export default async function Services() {
   const data = await categoriesWithServicesAndPrices();
 
   return (
-    <div className={"w-screen h-screen pt-[72px] px-[260px]"}>
+    <div className={"w-screen h-screen pt-[72px]"}>
       <ServiceForm categoriesWithServices={data} />
     </div>
   );

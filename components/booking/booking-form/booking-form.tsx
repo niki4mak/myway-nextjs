@@ -6,6 +6,7 @@ import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {SelectServiceTab} from "@/components/booking/booking-form/select-service-tab";
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
 import { IYBasicData } from "data/model/yclients/model";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 
 interface IBookingFormProps {
   data: IYBasicData;
@@ -14,6 +15,8 @@ interface IBookingFormProps {
 const BookingForm = memo<IBookingFormProps>(({
                                                                   data
                                                                 }) => {
+    const { isMobile } = useMediaQuery();
+
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center"
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]"
   const panelClassName= "h-full m-4 overflow-auto";

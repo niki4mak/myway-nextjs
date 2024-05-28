@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {memo} from "react";
 import Image from "next/image";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 
 interface ImageWithPath {
   imageWidth?: number;
@@ -43,8 +44,13 @@ Slide.displayName = "Slide";
 const ImagesSlider = memo<ImagesSliderProps>(({
                                               items
                                             }) => {
+  const { isMobile} = useMediaQuery();
+
+  const mobileClassName = "grid grid-cols-3 grid-rows-3";
+  const desktopClassName = "grid grid-cols-9";
+
   return (
-    <div className={"grid grid-cols-9"}>
+    <div className={isMobile ? mobileClassName : desktopClassName}>
       {items.map(it => <Slide {...it} key={`Slide-${it.imageUrl}`}/> )}
     </div>
   );
