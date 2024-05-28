@@ -7,7 +7,6 @@ import {SelectServiceTab} from "@/components/booking/booking-form/select-service
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
 import { IYBasicData } from "data/model/yclients/model";
 import useMediaQuery from "@/lib/hooks/use-media-query";
-import {IYBasicData} from "data/model/yclients/model";
 import {PersonCard} from "@/components/shared/person-card/person-card";
 import ButtonSolid from "@/components/shared/button/button-solid";
 
