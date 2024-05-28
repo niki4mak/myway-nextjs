@@ -20,19 +20,13 @@ const SelectServiceTab = memo<ISelectServiceTabProps>(({
                                                         selectCallBack
 }) => {
  return (
-   <div className={"grid grid-cols-[1fr_3fr] gap-4"}>
-     <div className={"flex flex-col gap-4 justify-between"}>
-       <PersonCard />
-       <ButtonSolid text={"Выбрать услугу"} />
-     </div>
-     <ServiceForm
-         YCategoriesWithServices={YCategoriesWithServices}
-       categoriesWithServices={categoriesWithServices}
-       selectedServices={selectedServices}
-       selectCallBack={selectCallBack}
-       isSelecting={true}
-     />
-   </div>
+   <ServiceForm
+     YCategoriesWithServices={YCategoriesWithServices}
+     categoriesWithServices={categoriesWithServices}
+     selectedServices={selectedServices}
+     selectCallBack={selectCallBack}
+     isSelecting={true}
+   />
  );
 })
 SelectServiceTab.displayName = "SelectServiceTab"

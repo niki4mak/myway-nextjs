@@ -1,12 +1,12 @@
 import {ServiceForm} from "@/components/service-form/service-form";
-import {categoriesWithServicesAndPrices} from "../../data/queries/prisma/service";
+import {getAllAvailableServices} from "../../data/queries/yclients/service";
 
 export default async function Services() {
-  const data = await categoriesWithServicesAndPrices();
+  const services = await getAllAvailableServices();
 
   return (
-    <div className={"w-screen h-screen pt-[72px]"}>
-      <ServiceForm categoriesWithServices={data} />
+    <div className={"w-screen h-screen py-[72px] overflow-auto"}>
+      <ServiceForm YCategoriesWithServices={services} />
     </div>
   );
 }
