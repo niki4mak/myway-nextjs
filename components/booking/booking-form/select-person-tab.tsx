@@ -15,11 +15,10 @@ const SelectPersonTab = memo<ISelectPersonTabProps>(({
                                                        masters,
                                                        ...props
                                                      }) => {
-  const persons = Array(24).fill(null);
     const { isMobile} = useMediaQuery();
 
-  return (
-    <div className={`w-full grid ${isMobile ? "grid-cols-3" : ""} gap-x-[100px] gap-y-2`}>
+    return (
+        <div className={`w-full grid ${isMobile ? "" : "grid-cols-3"} gap-x-[100px] gap-y-2`}>
       {masters.map((it, index) => <PersonCard
         {...props}
         key={`Person-Card-${index}`}
