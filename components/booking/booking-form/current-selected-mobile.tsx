@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {Dispatch, memo, SetStateAction} from 'react';
 import ButtonSolid from "@/components/shared/button/button-solid";
 import {IYBasicData} from "../../../data/model/yclients/model";
 
@@ -8,6 +8,7 @@ interface CurrentSelectedDesktopProps {
   selectedServices: number[];
   dateTime: Date | null;
   handleNextStep: VoidFunction;
+  setFinalize: Dispatch<SetStateAction<boolean>>;
 }
 
 const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
@@ -15,9 +16,11 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
                                                                    selectedMaster,
                                                                    selectedServices,
                                                                    dateTime,
-                                                                   handleNextStep
+                                                                   handleNextStep,
+                                                                   setFinalize
                                                                  }) => {
   const masterName = data.masters.find(m => m.id === selectedMaster)?.name;
+  const finalStepAvailable = !!(selectedMaster && selectedServices.length && dateTime);
 
   return (
     <div className={"flex flex-col gap-4 px-4 pt-4"}>
@@ -59,7 +62,11 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
         )
         : null
       }
-      <ButtonSolid clickHandler={handleNextStep} text={"Перейти к следующему шагу"}/>
+      {
+        finalStepAvailable
+          ? <ButtonSolid clickHandler={() => setFinalize(true)} text={"Перейти к оформелнию"}/>
+          : <ButtonSolid clickHandler={handleNextStep} text={"Перейти к следующему шагу"}/>
+      }
     </div>
   );
 });

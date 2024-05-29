@@ -22,11 +22,12 @@ const PersonCard = memo<IPersonCardProps>(({
     };
 
   const isSelected = selectedMaster === master?.id;
-  const containerClassName = "bg-[url('/icons/card-rectangle.svg')] bg-cover bg-center flex justify-between items-center rounded-3xl";
+  const containerClassName = "bg-[url('/icons/card-rectangle.svg')] bg-cover " +
+    "bg-center flex justify-between items-center rounded-3xl border border-transparent";
 
   return (
     <div
-      className={cn(containerClassName, isSelected && "border border-c-primary")}
+      className={cn(containerClassName, isSelected && "border-c-primary")}
       onClick={handleSelect}
     >
       <div className={"flex flex-col p-4"}>
