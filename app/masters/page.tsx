@@ -6,10 +6,9 @@ export default async function Masters() {
 
   const sliderItems = masters.map(it => ({
     imageUrl: it.photoUrl,
-    path: '/masters'
   }));
 
   return (
-    <ImagesSlider items={sliderItems} />
+    <ImagesSlider masters={masters}/>
   );
 }
