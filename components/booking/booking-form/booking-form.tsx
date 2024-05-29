@@ -5,7 +5,7 @@ import {SelectPersonTab} from "@/components/booking/booking-form/select-person-t
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {SelectServiceTab} from "@/components/booking/booking-form/select-service-tab";
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
-import { IYBasicData } from "data/model/yclients/model";
+import {IYBasicData} from "data/model/yclients/model";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import CurrentSelectedDesktop from "@/components/booking/booking-form/current-selected-desktop";
 import CurrentSelectedMobile from "@/components/booking/booking-form/current-selected-mobile";
@@ -15,14 +15,14 @@ interface IBookingFormProps {
 }
 
 const BookingForm = memo<IBookingFormProps>(({
-                                                                  data
-                                                                }) => {
-    const { isMobile } = useMediaQuery();
+                                               data
+                                             }) => {
+  const {isMobile} = useMediaQuery();
   const [tabIndex, setTabIndex] = useState(0);
 
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center"
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]"
-  const panelClassName = "w-full h-full m-4 overflow-auto";
+  const panelClassName = "w-full h-full p-4 overflow-y-auto overflow-x-hidden";
 
   const [selectedMaster, setSelectedMaster] = useState<number | null>(null);
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
@@ -50,19 +50,19 @@ const BookingForm = memo<IBookingFormProps>(({
         <div className={`flex justify-center ${isMobile ? "flex-col" : ""} w-full h-full`}>
           {(selectedMaster || selectedServices.length || dateTime)
             ? (isMobile
-                  ? <CurrentSelectedMobile
-                      data={data}
-                      selectedMaster={selectedMaster}
-                      selectedServices={selectedServices}
-                      dateTime={dateTime}
-                      handleNextStep={handleNextStep}
-                  /> : <CurrentSelectedDesktop
-                      data={data}
-                      selectedMaster={selectedMaster}
-                      selectedServices={selectedServices}
-                      dateTime={dateTime}
-                      handleNextStep={handleNextStep}
-                  />)
+              ? <CurrentSelectedMobile
+                data={data}
+                selectedMaster={selectedMaster}
+                selectedServices={selectedServices}
+                dateTime={dateTime}
+                handleNextStep={handleNextStep}
+              /> : <CurrentSelectedDesktop
+                data={data}
+                selectedMaster={selectedMaster}
+                selectedServices={selectedServices}
+                dateTime={dateTime}
+                handleNextStep={handleNextStep}
+              />)
             : null
           }
           <TabPanel>

@@ -1,10 +1,12 @@
 "use client";
 
-import {Dispatch, memo, SetStateAction} from "react";
+import {Dispatch, memo, SetStateAction, useState} from "react";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {ServiceItem} from "@/components/service-form/service-item";
 import {TCategoryWithServicesAndPrices} from "../../data/model/prisma/service";
 import {IYServicesResponse} from "../../data/model/yclients/model";
+import {TabSelect} from "@/components/shared/tab-select";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 
 interface ServiceFormProps {
   YCategoriesWithServices?: IYServicesResponse;
@@ -19,8 +21,11 @@ const ServiceForm = memo<ServiceFormProps>(({
                                               YCategoriesWithServices,
                                               ...props
                                             }) => {
+  const [tabIndex, setTabIndex] = useState(0);
+  const {isMobile} = useMediaQuery();
+
   const tabActiveClassname = "border-b-c-primary border-b-[2px]"
-  const panelClassName = "h-full m-4 flex flex-col gap-4";
+  const panelClassName = "h-full py-4 flex flex-col gap-4";
 
   const YCategories = YCategoriesWithServices?.category;
   const YServices = YCategoriesWithServices?.services;
@@ -62,10 +67,22 @@ const ServiceForm = memo<ServiceFormProps>(({
 
   return (
     <div className={"h-full w-full flex flex-col p-4 justify-center"}>
-      <Tabs className={"h-full"} selectedTabClassName={tabActiveClassname} selectedTabPanelClassName={panelClassName}>
-        <TabList className={"w-full grid grid-flow-col auto-cols-[1fr] text-center gap-4 px-4"}>
-          {TabsItems}
-        </TabList>
+      <Tabs
+        selectedIndex={tabIndex}
+        onSelect={(index) => setTabIndex(index)}
+        className={"h-full"}
+        selectedTabClassName={tabActiveClassname}
+        selectedTabPanelClassName={panelClassName}
+      >
+        {
+          isMobile ? <TabSelect
+            setSelected={setTabIndex}
+            selectedIndex={tabIndex}
+            categories={YCategories}
+          /> : <TabList className={"w-full grid grid-flow-col auto-cols-[1fr] text-center gap-4 px-4"}>
+            {TabsItems}
+          </TabList>
+        }
         {TabPanels}
       </Tabs>
     </div>
