@@ -32,7 +32,7 @@ const CurrentSelectedDesktop = memo<CurrentSelectedDesktopProps>(({
             {selectedServices.map(s1 => {
                 const s = data.services.services.find(it => it.id === s1);
 
-                return (<div key={`SelectedService-${s}`}>
+                return (<div key={`SelectedService-${s?.id}`}>
                   <div>{s?.title}</div>
                   <div>{`${s?.price_min === s?.price_max ? s?.price_min : `${s?.price_min} - ${s?.price_max}`} BYN`}</div>
                 </div>)

@@ -25,9 +25,12 @@ const PersonCard = memo<IPersonCardProps>(({
   const containerClassName = "bg-[url('/icons/card-rectangle.svg')] bg-cover " +
     "bg-center flex justify-between items-center rounded-3xl border border-transparent";
 
+  const disabled = master?.bookable === false;
+
   return (
-    <div
-      className={cn(containerClassName, isSelected && "border-c-primary")}
+    <button
+      disabled={disabled}
+      className={cn(containerClassName, isSelected && "border-c-primary", disabled && "opacity-50")}
       onClick={handleSelect}
     >
       <div className={"flex flex-col p-4"}>
@@ -49,7 +52,7 @@ const PersonCard = memo<IPersonCardProps>(({
           alt={"Person"}
         />
       </div>
-    </div>
+    </button>
   );
 })
 PersonCard.displayName = "PersonCard"
