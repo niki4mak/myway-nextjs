@@ -81,7 +81,7 @@
     color: #F5F5F5;
 
     &[aria-disabled="true"] {
-        opacity: 0.5;
+        display: none;
     }
 
     &:not([aria-disabled="true"]):hover {

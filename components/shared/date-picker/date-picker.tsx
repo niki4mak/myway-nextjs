@@ -3,6 +3,7 @@ import ReactDatePicker, {registerLocale} from "react-datepicker";
 import {ru} from 'date-fns/locale/ru';
 import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker.css";
+import {getISODate} from "@/lib/utils";
 
 registerLocale('ru', ru);
 
@@ -11,23 +12,23 @@ interface IDatePickerProps {
   dateTime: Date | null;
   setDateTime: Dispatch<SetStateAction<Date | null>>;
   available?: Date[];
+  availableTimes?: Date[];
 }
 
 const DatePicker = memo<IDatePickerProps>(({
                                              dateTime,
                                              setDateTime,
-                                             available
+                                             available,
+                                             availableTimes
                                            }) => {
   const filterDates = (date: Date) => {
     return !!available?.find(it => {
-      return it.getFullYear() === date.getFullYear() &&
-        it.getMonth() === date.getMonth() &&
-        it.getDate() === date.getDate()
+      return getISODate(date) === getISODate(it)
     })
   }
 
   const filterTimes = (date: Date) => {
-    return !!available?.find(it => it.getTime() === date.getTime())
+    return !!availableTimes?.find(it => it.getTime() === date.getTime())
   }
 
   return (

@@ -60,6 +60,8 @@ interface IYSeance {
   datetime: string;
 }
 
+type IYTimesResponse = IYSeance[];
+
 interface IYNearestSeancesResponse {
   seance_date: number;
   seances: IYSeance[];
@@ -80,6 +82,7 @@ export type {
   IYMastersResponse,
   IYDatesResponse,
   IYSeance,
+  IYTimesResponse,
   IYNearestSeancesResponse,
   IYBasicData,
 }

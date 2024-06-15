@@ -5,12 +5,17 @@ import {SelectPersonTab} from "@/components/booking/booking-form/select-person-t
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {SelectServiceTab} from "@/components/booking/booking-form/select-service-tab";
 import {SelectTimeTab} from "@/components/booking/booking-form/select-time-tab";
-import {IYBasicData, IYNearestSeancesResponse} from "data/model/yclients/model";
+import {IYBasicData, IYDatesResponse, IYTimesResponse} from "data/model/yclients/model";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import CurrentSelectedDesktop from "@/components/booking/booking-form/current-selected-desktop";
 import CurrentSelectedMobile from "@/components/booking/booking-form/current-selected-mobile";
 import {FinalizeForm} from "@/components/booking/booking-form/finalize-form";
-import {getAllAvailableServices, getNearestAvailableSeances} from "../../../data/queries/yclients/service";
+import {
+  getAllAvailableDates,
+  getAllAvailableServices,
+  getAllAvailableTimes
+} from "../../../data/queries/yclients/service";
+import {getISODate} from "@/lib/utils";
 
 interface IBookingFormProps {
   data: IYBasicData;
@@ -28,7 +33,8 @@ const BookingForm = memo<IBookingFormProps>(({
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]";
   const panelClassName = "w-full h-full p-4 overflow-y-auto overflow-x-hidden";
 
-  const [currentDates, setCurrentDates] = useState<IYNearestSeancesResponse | null>(null);
+  const [currentDates, setCurrentDates] = useState<IYDatesResponse | null>(null);
+  const [currentTimes, setCurrentTimes] = useState<IYTimesResponse | null>(null);
 
   const [selectedMaster, setSelectedMaster] = useState<number | null>(null);
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
@@ -46,16 +52,31 @@ const BookingForm = memo<IBookingFormProps>(({
   }, [selectedMaster, data])
 
   useEffect(() => {
-    if (!selectedMaster || !data) return;
+    if (!selectedMaster || !data || !selectedServices.length) return;
     const fetchData = async () => {
-      setCurrentDates(await getNearestAvailableSeances(selectedMaster.toString(), {
-        "service_ids[]": selectedServices.toString()
-      }))
+      setCurrentDates(await getAllAvailableDates({
+        "service_ids[]": selectedServices.toString(),
+        "staff_id": selectedMaster.toString()
+      }));
     }
 
     fetchData();
-    console.log(data.dates)
   }, [selectedMaster, selectedServices, data])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedMaster || !data || !selectedServices.length || !dateTime) return;
+      console.log(dateTime)
+      console.log(getISODate(dateTime))
+      const times = await getAllAvailableTimes(selectedMaster.toString(), dateTime, {
+        "service_ids[]": selectedServices.toString(),
+      });
+
+      setCurrentTimes(times);
+    }
+
+    fetchData();
+  }, [selectedMaster, selectedServices, data, dateTime])
 
   const handleNextStep = () => tabIndex < 2
     ? setTabIndex(prev => prev + 1)
@@ -122,6 +143,7 @@ const BookingForm = memo<IBookingFormProps>(({
               <SelectTimeTab
                 data={data}
                 currentDates={currentDates}
+                currentTimes={currentTimes}
                 dateTime={dateTime}
                 setDateTime={setDateTime}
               />
