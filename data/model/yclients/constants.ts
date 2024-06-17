@@ -5,6 +5,7 @@ const CONTENT_TYPE = "application/vnd.api.v2+json";
 
 const DEFAULT_HEADERS = {
   "Accept": CONTENT_TYPE,
+  "Content-Type": "application/json",
   "Authorization": `Bearer ${BEARER_TOKEN}`
 };
 

@@ -4,6 +4,8 @@ import {IYBasicData} from "../../../data/model/yclients/model";
 import ButtonSolid from "@/components/shared/button/button-solid";
 import Image from "next/image";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import {checkBookRecord} from "../../../data/queries/yclients/service";
+import {SuccessModal} from "@/components/booking/booking-form/success-modal";
 
 interface IFinalizeFormProps {
   data: IYBasicData;
@@ -27,8 +29,45 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const createBookRecordHandler = () => {
+    if (!selectedMaster || !selectedServices.length || !dateTime) return;
+
+    const appointments = selectedServices.map((it, index) => ({
+      id: index,
+      services: [it],
+      staff_id: selectedMaster,
+      datetime: dateTime,
+    }));
+
+    checkBookRecord({
+      appointments: appointments,
+    }).then(
+      res => {
+        if (!res?.success) {
+          setErrorMessage(res?.meta?.message)
+        } else {
+          setShowSuccessModal(true)
+        }
+      }
+    )
+
+    // const requestBody: IYCreateBookRecordBody = {
+    //   phone: phone,
+    //   fullname: name,
+    //   email: email,
+    //   comment: comment,
+    //   appointments: appointments,
+    // }
+    //
+    // createBookRecord(requestBody)
+  }
+
   return (
     <div className={"h-full flex flex-col gap-4 px-4"}>
+      <SuccessModal showModal={showSuccessModal} setShowModal={setShowSuccessModal}/>
       <ButtonSolid text={"Назад"} clickHandler={() => setFinalize(false)} className={"w-1/2"}/>
       <div className={isMobile ? "flex flex-col gap-4 overflow-y-auto" : "grid grid-cols-2 gap-16"}>
         <div className={"flex flex-col gap-4"}>
@@ -58,9 +97,14 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
           setEmail={setEmail}
         />
       </div>
-      <ButtonSolid text={"Записаться"} className={"w-1/2 self-end"} clickHandler={() => {
-        return;
-      }}/>
+      {errorMessage !== "Created"
+        ? (
+          <div className={"w-1/2 self-end text-red-500 text-center"}>
+            {errorMessage}
+          </div>
+        )
+        : null}
+      <ButtonSolid text={"Записаться"} className={"w-1/2 self-end"} clickHandler={createBookRecordHandler}/>
     </div>
   );
 })
