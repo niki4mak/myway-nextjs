@@ -15,7 +15,6 @@ import {
   getAllAvailableServices,
   getAllAvailableTimes
 } from "../../../data/queries/yclients/service";
-import {getISODate} from "@/lib/utils";
 
 interface IBookingFormProps {
   data: IYBasicData;
@@ -66,8 +65,6 @@ const BookingForm = memo<IBookingFormProps>(({
   useEffect(() => {
     const fetchData = async () => {
       if (!selectedMaster || !data || !selectedServices.length || !dateTime) return;
-      console.log(dateTime)
-      console.log(getISODate(dateTime))
       const times = await getAllAvailableTimes(selectedMaster.toString(), dateTime, {
         "service_ids[]": selectedServices.toString(),
       });

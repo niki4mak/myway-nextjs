@@ -1,6 +1,10 @@
 import {COMPANY_ID, DEFAULT_HEADERS, YCLIENTS_URL} from "../../model/yclients/constants";
-import {requestWrapper} from "../../model/yclients/utils";
+import {requestWrapper, requestWrapperWithMeta} from "../../model/yclients/utils";
 import {
+  IYCheckBookRecordBody,
+  IYCheckBookRecordResponse,
+  IYCreateBookRecordBody,
+  IYCreateBookRecordResponse,
   IYDatesResponse,
   IYMastersResponse,
   IYNearestSeancesResponse,
@@ -67,6 +71,24 @@ const getNearestAvailableSeances = async (staffId: string, queryParams?: Record<
   }
 )) as never as Promise<IYNearestSeancesResponse>;
 
+const createBookRecord = async (body: IYCreateBookRecordBody) => requestWrapper(fetch(
+  `${YCLIENTS_URL}/book_record/${COMPANY_ID}`,
+  {
+    method: "POST",
+    headers: DEFAULT_HEADERS,
+    body: JSON.stringify(body)
+  }
+)) as never as Promise<IYCreateBookRecordResponse>;
+
+const checkBookRecord = async (body: IYCheckBookRecordBody) => requestWrapperWithMeta(fetch(
+  `${YCLIENTS_URL}/book_check/${COMPANY_ID}`,
+  {
+    method: "POST",
+    headers: DEFAULT_HEADERS,
+    body: JSON.stringify(body)
+  }
+)) as never as Promise<IYCheckBookRecordResponse>;
+
 export {
   getAllAvailableServicesCategories,
   getAllAvailableServices,
@@ -74,4 +96,6 @@ export {
   getAllAvailableDates,
   getAllAvailableTimes,
   getNearestAvailableSeances,
+  createBookRecord,
+  checkBookRecord,
 };

@@ -73,6 +73,47 @@ interface IYBasicData {
   dates: IYDatesResponse;
 }
 
+interface IYAppointment {
+  id?: number;
+  services?: number[];
+  staff_id: number;
+  datetime: Date;
+  custom_fields?: Record<string, string>;
+}
+
+interface IYCreateBookRecordBody {
+  phone: string;
+  fullname: string;
+  email?: string;
+  appointments: IYAppointment[];
+  code?: string;
+  notify_by_sms?: number;
+  notify_by_email?: number;
+  comment?: string;
+  api_id?: number;
+  custom_fields?: Record<string, string>;
+}
+
+type IYCreateBookRecordResponse = IYCreateBookRecordResponseItem[];
+
+interface IYCreateBookRecordResponseItem {
+  id: number;
+  record_id: number;
+  record_hash: string;
+}
+
+interface IYCheckBookRecordBody {
+  appointments: IYAppointment[];
+}
+
+interface IYCheckBookRecordResponse {
+  data: any;
+  success: boolean;
+  meta: {
+    message: string;
+  }
+}
+
 export type {
   IResponseJSON,
   IYCategory,
@@ -85,4 +126,9 @@ export type {
   IYTimesResponse,
   IYNearestSeancesResponse,
   IYBasicData,
+  IYCreateBookRecordBody,
+  IYAppointment,
+  IYCreateBookRecordResponse,
+  IYCheckBookRecordBody,
+  IYCheckBookRecordResponse
 }

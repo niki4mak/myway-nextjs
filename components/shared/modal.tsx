@@ -11,17 +11,26 @@ export default function Modal({
                                 className,
                                 showModal,
                                 setShowModal,
+                                onCloseHandler
                               }: {
   children: React.ReactNode;
   className?: string;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  onCloseHandler?: () => void;
 }) {
   const {isMobile} = useMediaQuery();
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open && showModal && onCloseHandler) {
+      onCloseHandler();
+    }
+    setShowModal(open);
+  };
+
   if (isMobile) {
     return (
-      <Drawer.Root open={showModal} onOpenChange={setShowModal}>
+      <Drawer.Root open={showModal} onOpenChange={handleOpenChange}>
         <Drawer.Overlay className="fixed inset-0 z-10 bg-c-bg-dark bg-opacity-10 backdrop-blur"/>
         <Drawer.Portal>
           <Drawer.Content
@@ -41,7 +50,7 @@ export default function Modal({
     );
   }
   return (
-    <Dialog.Root open={showModal} onOpenChange={setShowModal}>
+    <Dialog.Root open={showModal} onOpenChange={handleOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay
           // for detecting when there's an active opened modal
