@@ -116,3 +116,10 @@
 .react-datepicker__current-month {
     color: #F5F5F5;
 }
+
+@media only screen and (max-width: 768px) {
+    .react-datepicker__day {
+        height: auto;
+        font-size: 16px;
+    }
+}

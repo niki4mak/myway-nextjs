@@ -30,7 +30,7 @@ const BookingForm = memo<IBookingFormProps>(({
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center";
   const tabDisabledClassname = "opacity-[0.4]";
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]";
-  const panelClassName = "w-full p-4";
+  const panelClassName = `w-full p-4 ${isMobile && "h-full"}`;
 
   const [currentDates, setCurrentDates] = useState<IYDatesResponse | null>(null);
   const [currentTimes, setCurrentTimes] = useState<IYTimesResponse | null>(null);
@@ -83,7 +83,7 @@ const BookingForm = memo<IBookingFormProps>(({
     };
 
   return (
-    <div className={"h-[75vh] w-full flex flex-col justify-center gap-16 px-4"}>
+    <div className={`w-full flex flex-col justify-center gap-16 px-4 ${isMobile ? "pt-[80px]" : "h-[80vh]"}`}>
       {!isFinalize
         ? <Tabs
           selectedIndex={tabIndex}

@@ -88,7 +88,7 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
   }
 
   return (
-    <div className={"h-full flex flex-col gap-4 px-4"}>
+    <div className={"h-full flex flex-col gap-4 px-4 pb-4"}>
       <SuccessModal
         showModal={showSuccessModal}
         setShowModal={setShowSuccessModal}

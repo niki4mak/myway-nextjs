@@ -25,7 +25,7 @@ const ServiceForm = memo<ServiceFormProps>(({
   const {isMobile} = useMediaQuery();
 
   const tabActiveClassname = "border-b-c-primary border-b-[2px]"
-  const panelClassName = "h-full py-4 flex flex-col gap-4";
+  const panelClassName = "h-full py-4 flex flex-col gap-4 overflow-auto";
 
   const YCategories = YCategoriesWithServices?.category;
   const YServices = YCategoriesWithServices?.services;

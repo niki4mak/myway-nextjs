@@ -58,16 +58,32 @@ const ServiceItem = memo<IServiceItemProps>(({
           <div>{title}</div>
           {isMobile ? null : <div className={"text-[14px]"}>{description}</div>}
         </div>
-        <div className={"text-2xl"}>
-          {`${priceMin === priceMax ? priceMin : `${priceMin} - ${priceMax}`} BYN`}
-        </div>
+          {isMobile
+              ? null
+              : (
+                  <div className={"text-2xl"}>
+                      {`${priceMin === priceMax ? priceMin : `${priceMin} - ${priceMax}`} BYN`}
+                  </div>
+              )
+          }
         {
           isSelecting
             ? <Checkbox value={!!isSelected} handleClick={handleClick}/>
             : null
         }
       </div>
-      {isMobile ? <div className={"text-[12px]"}>{description}</div> : null}
+        {
+            isMobile
+            ? (
+                    <div className={"grid grid-cols-[2fr_1fr] gap-2"}>
+                        <div className={"text-[12px]"}>{description}</div>
+                        <div className={"text-2xl text-right"}>
+                            {`${priceMin === priceMax ? priceMin : `${priceMin} - ${priceMax}`} BYN`}
+                        </div>
+                    </div>
+                )
+                : null
+        }
     </div>
   );
 })
