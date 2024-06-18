@@ -1,11 +1,12 @@
-import React, {ChangeEvent, Dispatch, memo, SetStateAction, useState} from "react";
+import React, {ChangeEvent, Dispatch, memo, SetStateAction, useMemo, useState} from "react";
 import {Input} from "@/components/shared/input";
-import {IYBasicData, IYCreateBookRecordBody} from "../../../data/model/yclients/model";
+import {IYAppointment, IYBasicData, IYCreateBookRecordBody} from "../../../data/model/yclients/model";
 import ButtonSolid from "@/components/shared/button/button-solid";
 import Image from "next/image";
 import useMediaQuery from "@/lib/hooks/use-media-query";
-import {checkBookRecord, createBookRecord} from "../../../data/queries/yclients/service";
+import {checkBookRecord} from "../../../data/queries/yclients/service";
 import {SuccessModal} from "@/components/booking/booking-form/success-modal";
+import {ConfirmCodeModal} from "@/components/booking/booking-form/confirm-code-modal";
 
 interface IFinalizeFormProps {
   data: IYBasicData;
@@ -14,6 +15,12 @@ interface IFinalizeFormProps {
   dateTime: Date | null;
   setFinalize: Dispatch<SetStateAction<boolean>>;
 }
+
+const isValidMobileNumber = (number: string) => {
+  // Regular expression to match the format +375xxxxxxxxx
+  const regex = /^\+375\d{9}$/;
+  return regex.test(number);
+};
 
 const FinalizeForm = memo<IFinalizeFormProps>(({
                                                  data,
@@ -31,48 +38,67 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
-  const createBookRecordHandler = () => {
-    if (!selectedMaster || !selectedServices.length || !dateTime) return;
+  const appointments: IYAppointment[] | null = useMemo(() => {
+    if (!selectedMaster || !selectedServices.length || !dateTime) return null;
 
-    const appointments = selectedServices.map((it, index) => ({
+    return selectedServices.map((it, index) => ({
       id: index,
       services: [it],
       staff_id: selectedMaster,
       datetime: dateTime,
-    }));
+    }))
+  }, [selectedServices, selectedMaster, dateTime])
+
+  const requestBody: IYCreateBookRecordBody | null = useMemo(() => {
+    if (!appointments || !phone || !name) return null;
+
+    return ({
+      phone: phone,
+      fullname: name,
+      email: email,
+      comment: comment,
+      appointments: appointments,
+    })
+  }, [appointments, phone, name, email, comment])
+
+  const checkBookRecordHandler = () => {
+    if (!requestBody) return;
 
     checkBookRecord({
-      appointments: appointments,
+      appointments: requestBody.appointments,
     }).then((res) => {
         if (!res?.success) {
           throw Error(res?.meta?.message)
+        } else {
+          return res;
         }
       }
-    ).then(() => {
-        const requestBody: IYCreateBookRecordBody = {
-            phone: phone,
-            fullname: name,
-            email: email,
-            comment: comment,
-            appointments: appointments,
-        }
-
-        return createBookRecord(requestBody)
-    }).then((res) => {
-        if (!res?.success) {
-            throw Error(res?.meta?.message)
+    ).then((res) => {
+        if (!isValidMobileNumber(phone)) {
+          throw Error("Номер телефона введен неправильно. Формат: +375xxxxxxxxx")
         } else {
-            setShowSuccessModal(true)
+          setShowConfirmationModal(true);
         }
-    }).catch((error: Error) => {
-        setErrorMessage(error.message);
+      }
+    ).catch((error: Error) => {
+      setErrorMessage(error.message);
     })
   }
 
   return (
     <div className={"h-full flex flex-col gap-4 px-4"}>
-      <SuccessModal showModal={showSuccessModal} setShowModal={setShowSuccessModal}/>
+      <SuccessModal
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+      />
+      {requestBody ? <ConfirmCodeModal
+        showModal={showConfirmationModal}
+        setShowModal={setShowConfirmationModal}
+        requestBody={requestBody}
+        setShowSuccessModal={setShowSuccessModal}
+      /> : null}
       <ButtonSolid text={"Назад"} clickHandler={() => setFinalize(false)} className={"w-1/2"}/>
       <div className={isMobile ? "flex flex-col gap-4 overflow-y-auto" : "grid grid-cols-2 gap-16"}>
         <div className={"flex flex-col gap-4"}>
@@ -109,7 +135,7 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
           </div>
         )
         : null}
-      <ButtonSolid text={"Записаться"} className={"w-1/2 self-end"} clickHandler={createBookRecordHandler}/>
+      <ButtonSolid text={"Записаться"} className={"w-1/2 self-end"} clickHandler={checkBookRecordHandler}/>
     </div>
   );
 })

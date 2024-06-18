@@ -9,8 +9,14 @@ const DEFAULT_HEADERS = {
   "Authorization": `Bearer ${BEARER_TOKEN}`
 };
 
+const getHeadersWithUserToken = () => ({
+  ...DEFAULT_HEADERS,
+  "Authorization": `Bearer ${BEARER_TOKEN}, User ${localStorage.getItem("userToken")}`
+})
+
 export {
   YCLIENTS_URL,
   COMPANY_ID,
-  DEFAULT_HEADERS
+  DEFAULT_HEADERS,
+  getHeadersWithUserToken
 };

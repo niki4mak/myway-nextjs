@@ -120,6 +120,35 @@ interface IYCheckBookRecordResponse {
   }
 }
 
+interface IYAuthBody {
+  phone: string;
+  code: string;
+  company_id: string;
+}
+
+interface IYAuthResponse {
+  data: {
+    id: number;
+    user_token: string;
+    "name": string;
+    "phone": string;
+    "login": string;
+    "email": string;
+    "avatar": string;
+  };
+  success: boolean;
+  meta: {
+    message: string;
+  }
+}
+
+interface IYBookCodeBody {
+  phone: string;
+  fullname: string;
+}
+
+type IYBookCodeResponse = IYCheckBookRecordResponse;
+
 export type {
   IResponseJSON,
   IYCategory,
@@ -136,5 +165,25 @@ export type {
   IYAppointment,
   IYCreateBookRecordResponse,
   IYCheckBookRecordBody,
-  IYCheckBookRecordResponse
+  IYCheckBookRecordResponse,
+
+  IYBookCodeBody,
+  IYBookCodeResponse,
+  IYAuthBody,
+  IYAuthResponse,
 }
+
+// {
+//   "success": true,
+//   "data": {
+//   "0": "4aeaca88df39bcaaddc4b9414a2940fe",
+//     "id": 21733205,
+//     "user_token": "4aeaca88df39bcaaddc4b9414a2940fe",
+//     "name": "Test",
+//     "phone": "375298648934",
+//     "login": "375298648934",
+//     "email": "",
+//     "avatar": "https://be.cdn.yclients.com/images/no-master.png"
+// },
+//   "meta": []
+// }

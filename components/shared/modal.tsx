@@ -5,23 +5,31 @@ import {cn} from "@/lib/utils";
 import {Drawer} from "vaul";
 import * as Dialog from "@radix-ui/react-dialog";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 
 export default function Modal({
                                 children,
                                 className,
                                 showModal,
                                 setShowModal,
-                                onCloseHandler
+                                onCloseHandler,
+                                locked = false,
                               }: {
   children: React.ReactNode;
   className?: string;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   onCloseHandler?: () => void;
+  locked?: boolean;
 }) {
   const {isMobile} = useMediaQuery();
 
   const handleOpenChange = (open: boolean) => {
+    if (locked && !open) {
+      // If the modal is locked and an attempt is made to close it, ignore the change
+      return;
+    }
+    
     if (!open && showModal && onCloseHandler) {
       onCloseHandler();
     }
@@ -65,6 +73,9 @@ export default function Modal({
             className,
           )}
         >
+          <Dialog.Close className={"w-full flex justify-end"}>
+            <CloseIcon/>
+          </Dialog.Close>
           {children}
         </Dialog.Content>
       </Dialog.Portal>

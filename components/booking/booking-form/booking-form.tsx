@@ -30,7 +30,7 @@ const BookingForm = memo<IBookingFormProps>(({
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center";
   const tabDisabledClassname = "opacity-[0.4]";
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]";
-  const panelClassName = "w-full h-full p-4 overflow-y-auto overflow-x-hidden";
+  const panelClassName = "w-full p-4";
 
   const [currentDates, setCurrentDates] = useState<IYDatesResponse | null>(null);
   const [currentTimes, setCurrentTimes] = useState<IYTimesResponse | null>(null);
@@ -38,6 +38,7 @@ const BookingForm = memo<IBookingFormProps>(({
   const [selectedMaster, setSelectedMaster] = useState<number | null>(null);
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
   const [dateTime, setDateTime] = useState<Date | null>(null);
+
 
   useEffect(() => {
     if (!selectedMaster || !data) return;
@@ -48,6 +49,7 @@ const BookingForm = memo<IBookingFormProps>(({
     }
 
     fetchData();
+    setSelectedServices([]);
   }, [selectedMaster, data])
 
   useEffect(() => {

@@ -6,16 +6,33 @@
     --tw-ring-shadow: transparent;
 }
 
+body {
+    font-family: var(--font-montserrat);
+}
+
 * {
     z-index: 1;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #FAEFB7;
+        border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 }
 
 .h-screen {
-    height: calc(100dvh);
+    height: 100dvh;
 }
 
 .min-h-screen {
-    min-height: calc(100dvh);
+    min-height: 100dvh;
 }
 
 .vertical-inner-shadow {
