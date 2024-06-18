@@ -64,6 +64,14 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
   }, [appointments, phone, name, email, comment])
 
   const checkBookRecordHandler = () => {
+      if (!phone) {
+          setErrorMessage("Введите номер телефона!");
+          return;
+      }
+      if (!name) {
+          setErrorMessage("Введите ваше имя!");
+          return;
+      }
     if (!requestBody) return;
 
     checkBookRecord({
