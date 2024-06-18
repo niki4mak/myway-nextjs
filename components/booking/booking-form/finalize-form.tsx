@@ -1,10 +1,10 @@
 import React, {ChangeEvent, Dispatch, memo, SetStateAction, useState} from "react";
 import {Input} from "@/components/shared/input";
-import {IYBasicData} from "../../../data/model/yclients/model";
+import {IYBasicData, IYCreateBookRecordBody} from "../../../data/model/yclients/model";
 import ButtonSolid from "@/components/shared/button/button-solid";
 import Image from "next/image";
 import useMediaQuery from "@/lib/hooks/use-media-query";
-import {checkBookRecord} from "../../../data/queries/yclients/service";
+import {checkBookRecord, createBookRecord} from "../../../data/queries/yclients/service";
 import {SuccessModal} from "@/components/booking/booking-form/success-modal";
 
 interface IFinalizeFormProps {
@@ -44,25 +44,30 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
 
     checkBookRecord({
       appointments: appointments,
-    }).then(
-      res => {
+    }).then((res) => {
         if (!res?.success) {
-          setErrorMessage(res?.meta?.message)
-        } else {
-          setShowSuccessModal(true)
+          throw Error(res?.meta?.message)
         }
       }
-    )
+    ).then(() => {
+        const requestBody: IYCreateBookRecordBody = {
+            phone: phone,
+            fullname: name,
+            email: email,
+            comment: comment,
+            appointments: appointments,
+        }
 
-    // const requestBody: IYCreateBookRecordBody = {
-    //   phone: phone,
-    //   fullname: name,
-    //   email: email,
-    //   comment: comment,
-    //   appointments: appointments,
-    // }
-    //
-    // createBookRecord(requestBody)
+        return createBookRecord(requestBody)
+    }).then((res) => {
+        if (!res?.success) {
+            throw Error(res?.meta?.message)
+        } else {
+            setShowSuccessModal(true)
+        }
+    }).catch((error: Error) => {
+        setErrorMessage(error.message);
+    })
   }
 
   return (

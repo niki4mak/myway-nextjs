@@ -94,7 +94,13 @@ interface IYCreateBookRecordBody {
   custom_fields?: Record<string, string>;
 }
 
-type IYCreateBookRecordResponse = IYCreateBookRecordResponseItem[];
+interface IYCreateBookRecordResponse {
+  data: IYCreateBookRecordResponseItem[];
+  success: boolean;
+  meta: {
+    message: string;
+  }
+}
 
 interface IYCreateBookRecordResponseItem {
   id: number;
