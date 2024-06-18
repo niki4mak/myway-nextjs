@@ -29,7 +29,7 @@ export default function Modal({
       // If the modal is locked and an attempt is made to close it, ignore the change
       return;
     }
-    
+
     if (!open && showModal && onCloseHandler) {
       onCloseHandler();
     }
@@ -73,9 +73,13 @@ export default function Modal({
             className,
           )}
         >
-          <Dialog.Close className={"w-full flex justify-end"}>
-            <CloseIcon/>
-          </Dialog.Close>
+          {
+            locked
+              ? null
+              : (<Dialog.Close className={"w-full flex justify-end"}>
+                <CloseIcon/>
+              </Dialog.Close>)
+          }
           {children}
         </Dialog.Content>
       </Dialog.Portal>

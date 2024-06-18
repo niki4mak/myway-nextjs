@@ -83,7 +83,7 @@ const BookingForm = memo<IBookingFormProps>(({
     };
 
   return (
-    <div className={"h-[75vh] w-full flex flex-col justify-center gap-16"}>
+    <div className={"h-[75vh] w-full flex flex-col justify-center gap-16 px-4"}>
       {!isFinalize
         ? <Tabs
           selectedIndex={tabIndex}
@@ -92,7 +92,7 @@ const BookingForm = memo<IBookingFormProps>(({
           selectedTabClassName={tabActiveClassname}
           selectedTabPanelClassName={panelClassName}
         >
-          <TabList className={"grid grid-flow-col auto-cols-[1fr] text-center gap-4 px-4"}>
+          <TabList className={"grid grid-flow-col auto-cols-[1fr] text-center gap-4"}>
             <Tab className={tabClassname}>
               Специалисты
             </Tab>

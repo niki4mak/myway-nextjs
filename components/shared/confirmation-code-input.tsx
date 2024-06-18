@@ -12,6 +12,7 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
                                                                   onComplete
                                                                 }) => {
   const [values, setValues] = useState<string[]>(Array(length).fill(''));
+  // const [isFilled, setIsFilled] = useState(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (value: string, index: number) => {
@@ -33,8 +34,21 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (e.key === 'Backspace' && !values[index] && index > 0) {
-      inputsRef.current[index - 1]?.focus();
+    const newValues = [...values];
+
+    if (e.key === 'Backspace') {
+      if (index > 0) {
+        inputsRef.current[index - 1]?.focus();
+      }
+      if (values[index]) {
+        newValues[index] = "";
+        setValues(newValues);
+      }
+    } else {
+      if (values[index]) {
+        newValues[index] = e.key;
+        setValues(newValues);
+      }
     }
   };
 
@@ -49,14 +63,13 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, index)}
           onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e, index)}
           ref={(el) => (inputsRef.current[index] = el)}
-          className={"text-c-dark"}
+          className={"text-c-primary bg-c-bg-dark border-2 border-c-primary"}
           style={{
-            width: '40px',
-            height: '40px',
+            width: '60px',
+            height: '60px',
             fontSize: '24px',
             textAlign: 'center',
             borderRadius: '4px',
-            border: '1px solid #ccc'
           }}
         />
       ))}

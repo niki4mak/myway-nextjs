@@ -1,4 +1,4 @@
-import {Dispatch, memo, SetStateAction, useEffect, useState} from "react";
+import {Dispatch, memo, SetStateAction, useEffect, useRef, useState} from "react";
 import Modal from "@/components/shared/modal";
 import ButtonSolid from "@/components/shared/button/button-solid";
 import {ConfirmationCodeInput} from "@/components/shared/confirmation-code-input";
@@ -22,22 +22,32 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
                                                        }) => {
   const [timer, setTimer] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    if (!showModal || timer > 0) return;
     resendCodeHandler();
-  }, []);
+  }, [showModal]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | undefined = undefined;
     if (timer > 0) {
-      interval = setInterval(() => {
+      intervalRef.current = setTimeout(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     } else if (timer === 0) {
       setIsButtonDisabled(false);
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     }
-    return () => clearInterval(interval);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [timer]);
 
   const resendCodeHandler = () => {
@@ -83,7 +93,7 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
   }
 
   return (
-    <Modal showModal={showModal} setShowModal={setShowModal} locked={true}>
+    <Modal showModal={showModal} setShowModal={setShowModal}>
       <div className={"flex flex-col w-full items-center gap-4"}>
         <div className={"text-c-primary text-3xl text-center"}>
           Введите код из СМС:
@@ -95,6 +105,7 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
           text={isButtonDisabled ? `Переотправить код через ${timer}s` : "Переотправить код"}
           clickHandler={resendCodeHandler}
           disabled={isButtonDisabled}
+          className={"w-1/2"}
         />
       </div>
     </Modal>

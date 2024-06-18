@@ -55,7 +55,7 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
                 {dateTime?.toLocaleDateString()}
               </div>
               <div className={"text-2xl"}>
-                {dateTime?.toLocaleTimeString()}
+                {dateTime?.toTimeString().slice(0, 5)}
               </div>
             </div>
           </div>

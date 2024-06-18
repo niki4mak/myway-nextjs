@@ -25,12 +25,12 @@
 /* DAY */
 
 .react-datepicker__day {
+    height: 80px;
     font-size: 20px;
     color: #F5F5F5;
     border-radius: 10px;
     background: #B1B1B133;
     width: auto;
-    height: auto;
 
     &[aria-disabled="true"] {
         opacity: 0.5;
@@ -59,6 +59,7 @@
 }
 
 .react-datepicker__day-name {
+    color: #F5F5F5;
     width: auto;
     height: auto;
 }
@@ -106,4 +107,12 @@
 
 .react-datepicker__navigation--next {
     left: calc(66% - 32px);
+}
+
+.react-datepicker-time__header {
+    color: #F5F5F5;
+}
+
+.react-datepicker__current-month {
+    color: #F5F5F5;
 }

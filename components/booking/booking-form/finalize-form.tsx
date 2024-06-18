@@ -223,6 +223,7 @@ const BookingDetails = memo<IBookingDetailsProps>(({
       <div className={"flex justify-between items-center"}>
         <div className={"flex flex-col"}>
           <div className={""}>{dateTime?.toLocaleDateString()}</div>
+          <div className={""}>{dateTime?.toTimeString().slice(0, 5)}</div>
           <div className={""}>{`Мастер: ${master?.name}`}</div>
         </div>
         <Image
