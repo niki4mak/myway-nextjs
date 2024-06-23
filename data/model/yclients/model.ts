@@ -43,6 +43,8 @@ interface IYMaster {
   avatar: string;
   information: string;
   seance_date: string;
+  votes_count?: number[];
+  comments_count?: number[];
 }
 
 type IYMastersResponse = IYMaster[];

@@ -64,7 +64,7 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
       }
       {
         finalStepAvailable
-          ? <ButtonSolid clickHandler={() => setFinalize(true)} text={"Перейти к оформелнию"}/>
+          ? <ButtonSolid clickHandler={() => setFinalize(true)} text={"Перейти к оформлению"}/>
           : <ButtonSolid clickHandler={handleNextStep} text={"Перейти к следующему шагу"}/>
       }
     </div>
