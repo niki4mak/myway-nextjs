@@ -5,8 +5,8 @@ export default async function Services() {
   const services = await getAllAvailableServices();
 
   return (
-    <div className={"w-screen h-screen py-[72px] px-[8%] overflow-auto"}>
-      <ServiceForm YCategoriesWithServices={services} />
+    <div className={"w-screen h-screen py-[72px] overflow-auto"}>
+      <ServiceForm YCategoriesWithServices={services}/>
     </div>
   );
 }

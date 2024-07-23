@@ -19,13 +19,14 @@ interface ServiceFormProps {
 const ServiceForm = memo<ServiceFormProps>(({
                                               categoriesWithServices,
                                               YCategoriesWithServices,
+                                              isSelecting,
                                               ...props
                                             }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const {isMobile} = useMediaQuery();
 
   const tabActiveClassname = "border-b-c-primary border-b-[2px]"
-  const panelClassName = "h-full py-4 flex flex-col gap-4 overflow-auto";
+  const panelClassName = `h-[90%] py-4 flex flex-col gap-4 overflow-auto ${isSelecting ? "" : "p-4"}`;
 
   const YCategories = YCategoriesWithServices?.category;
   const YServices = YCategoriesWithServices?.services;
@@ -38,14 +39,17 @@ const ServiceForm = memo<ServiceFormProps>(({
 
     TabPanels = YCategories.map(c => (
       <TabPanel key={`TabPanel-${c.id}`}>
-        {YServices.filter(s1 => s1.category_id === c.id).map(s => <ServiceItem {...props}
-                                                                               id={s.id}
-                                                                               title={s.title}
-                                                                               description={s.comment}
-                                                                               priceMin={s.price_min}
-                                                                               priceMax={s.price_max}
-                                                                               key={`Service-${s.id}`}
-        />)}
+        {YServices.filter(s1 => s1.category_id === c.id).map(s =>
+          <ServiceItem
+            {...props}
+            isSelecting={isSelecting}
+            id={s.id}
+            title={s.title}
+            description={s.comment}
+            priceMin={s.price_min}
+            priceMax={s.price_max}
+            key={`Service-${s.id}`}
+          />)}
       </TabPanel>
     ));
   } else {
@@ -66,7 +70,7 @@ const ServiceForm = memo<ServiceFormProps>(({
   }
 
   return (
-    <div className={"h-full w-full flex flex-col p-4 justify-center"}>
+    <div className={"h-full w-full flex flex-col justify-center"}>
       <Tabs
         selectedIndex={tabIndex}
         onSelect={(index) => setTabIndex(index)}

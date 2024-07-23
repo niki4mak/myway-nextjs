@@ -30,7 +30,7 @@ const BookingForm = memo<IBookingFormProps>(({
   const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center";
   const tabDisabledClassname = "opacity-[0.4]";
   const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]";
-  const panelClassName = `w-full p-4 ${isMobile && "h-full"}`;
+  const panelClassName = `w-full overflow-auto p-4`;
 
   const [currentDates, setCurrentDates] = useState<IYDatesResponse | null>(null);
   const [currentTimes, setCurrentTimes] = useState<IYTimesResponse | null>(null);
@@ -83,12 +83,13 @@ const BookingForm = memo<IBookingFormProps>(({
     };
 
   return (
-    <div className={`w-full flex flex-col justify-center gap-16 px-4 ${isMobile ? "pt-[80px]" : "h-[80vh]"}`}>
+    <div
+      className={`w-full flex flex-col justify-center gap-16 px-4 ${isMobile ? "pt-[80px] h-[100dvh]" : "h-[80dvh]"}`}>
       {!isFinalize
         ? <Tabs
           selectedIndex={tabIndex}
           onSelect={(index) => setTabIndex(index)}
-          className={"h-full"}
+          className={"h-full flex flex-col gap-2"}
           selectedTabClassName={tabActiveClassname}
           selectedTabPanelClassName={panelClassName}
         >
@@ -104,7 +105,7 @@ const BookingForm = memo<IBookingFormProps>(({
               Дата и время
             </Tab>
           </TabList>
-          <div className={`flex justify-center ${isMobile ? "flex-col" : ""} w-full h-full`}>
+          <div className={`flex ${isMobile ? "flex-col h-[85%]" : ""} w-full`}>
             {(selectedMaster || selectedServices.length || dateTime)
               ? (isMobile
                 ? <CurrentSelectedMobile
