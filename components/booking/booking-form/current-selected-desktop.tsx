@@ -49,7 +49,7 @@ const CurrentSelectedDesktop = memo<CurrentSelectedDesktopProps>(({
             <div className={""}>Выбранный сеанс:</div>
             <div className={"text-c-primary"}>
               <div className={"text-xl"}>
-                {dateTime?.toLocaleDateString()}
+                {dateTime?.toLocaleDateString("ru-RU")}
               </div>
               <div className={"text-2xl"}>
                 {dateTime?.toTimeString().slice(0, 5)}

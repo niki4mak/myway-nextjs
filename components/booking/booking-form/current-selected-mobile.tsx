@@ -31,7 +31,7 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
       {selectedServices.length
         ? <div className={"flex justify-between"}>
           <div className={""}>Услуги:</div>
-          <div className={"flex flex-col gap-2 text-c-primary max-h-[70px] overflow-y-auto"}>
+          <div className={"flex flex-col gap-2 text-c-primary max-h-[120px] overflow-y-auto"}>
             {selectedServices.map(s1 => {
                 const s = data.services.services.find(it => it.id === s1);
 
@@ -52,7 +52,7 @@ const CurrentSelectedMobile = memo<CurrentSelectedDesktopProps>(({
             <div className={""}>Выбранный сеанс:</div>
             <div className={"text-c-primary"}>
               <div className={"text-xl"}>
-                {dateTime?.toLocaleDateString()}
+                {dateTime?.toLocaleDateString("ru-RU")}
               </div>
               <div className={"text-2xl"}>
                 {dateTime?.toTimeString().slice(0, 5)}
