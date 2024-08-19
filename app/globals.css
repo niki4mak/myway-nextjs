@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --tw-ring-shadow: transparent;
+*, ::before, ::after {
+    --tw-ring-shadow: transparent !important;
+    --tw-ring-color: transparent !important;
 }
 
 body {
     font-family: var(--font-montserrat);
+}
+
+img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 * {
