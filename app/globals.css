@@ -7,6 +7,10 @@
     --tw-ring-color: transparent !important;
 }
 
+*:focus {
+    border-color: #FAEFB7 !important;
+}
+
 body {
     font-family: var(--font-montserrat);
 }
