@@ -80,5 +80,6 @@ const SideDrawer = memo<SideDrawerProps>(({
         </>
     );
 });
+SideDrawer.displayName = "SideDrawer";
 
 export default BurgerMenu;
