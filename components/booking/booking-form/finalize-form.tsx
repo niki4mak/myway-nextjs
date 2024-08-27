@@ -173,7 +173,9 @@ const PersonalData = memo<PersonalDataProps>(({
     <div>
       <div className={"flex flex-col gap-4"}>
         <div className={"flex flex-col gap-2"}>
-          <label htmlFor="finalize_name">Имя</label>
+          <label htmlFor="finalize_name">
+            Имя <span className={"text-xxl text-red-500"}>*</span>
+          </label>
           <Input
             id={"finalize_name"}
             value={name}
@@ -182,9 +184,13 @@ const PersonalData = memo<PersonalDataProps>(({
           />
         </div>
         <div className={"flex flex-col gap-2"}>
-          <label htmlFor="finalize_name">Телефон</label>
+          <label htmlFor="finalize_name">
+            Телефон <span className={"text-xxl text-red-500"}>*</span>
+          </label>
           <Input
             id={"finalize_phone"}
+            type={"tel"}
+            pattern={"+375[0-9]{9}"}
             value={phone}
             onInput={changeHandle(setPhone)}
             placeholder={"Введите номер телефона"}
