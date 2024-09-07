@@ -1,6 +1,15 @@
 "use client"
 
-import React, {ChangeEvent, KeyboardEvent, memo, useEffect, useRef, useState} from 'react';
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  ClipboardEventHandler,
+  KeyboardEvent,
+  memo,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 
 interface ConfirmationCodeInputProps {
   length?: number;
@@ -15,25 +24,33 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   // const [isFilled, setIsFilled] = useState(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
-  useEffect(() => {
-    // Handle autofill from the browser
-    const handleAutofill = (e: any) => {
-      const newValue = e.target.value;
-      if (newValue && newValue.length === length) {
-        const newValues = newValue.split('');
-        setValues(newValues);
-        onComplete(newValue);
+  const handlePaste: ClipboardEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    const paste = e.clipboardData?.getData('text');
+
+    if (paste) {
+      const pasteArray = paste.split('').slice(0, length);
+      const newValues = [...values];
+
+      // Paste into the first fields up to the length of the inputs
+      pasteArray.forEach((char, index) => {
+        if (/^[0-9]$/.test(char)) {
+          newValues[index] = char;
+        }
+      });
+
+      setValues(newValues);
+
+      // Call onComplete if all inputs are filled
+      if (newValues.every((val) => val !== '')) {
+        onComplete(newValues.join(''));
       }
-    };
+    }
+  };
 
-    inputsRef.current[0]?.addEventListener('input', handleAutofill);
-
-    return () => {
-      inputsRef.current[0]?.removeEventListener('input', handleAutofill);
-    };
-  }, [length, onComplete]);
-
-  const handleChange = (value: string, index: number) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const value = e.target.value;
+    e.preventDefault();
     if (/^[0-9]$/.test(value)) {
       const newValues = [...values];
 
@@ -49,6 +66,8 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
       if (newValues.every((val) => val !== '')) {
         onComplete(newValues.join(''));
       }
+    } else {
+      return;
     }
   };
 
@@ -79,8 +98,9 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
           type="text"
           maxLength={1}
           value={value}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, index)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, index)}
           onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e, index)}
+          onPaste={handlePaste} // Handle paste event
           ref={(el) => (inputsRef.current[index] = el)}
           autoComplete={"one-time-code"}
           className={"text-c-primary bg-c-bg-dark border-2 border-c-primary"}
