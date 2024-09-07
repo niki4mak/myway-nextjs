@@ -39,7 +39,6 @@ const BookingForm = memo<IBookingFormProps>(({
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
   const [dateTime, setDateTime] = useState<Date | null>(null);
 
-
   useEffect(() => {
     if (!selectedMaster || !data) return;
     const fetchData = async () => {

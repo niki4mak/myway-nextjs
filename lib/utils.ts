@@ -6,6 +6,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function isoDateWithoutTimeZone(date: Date | null) {
+  if (date == null) return date;
+  const timestamp = date.getTime() - date.getTimezoneOffset() * 60000;
+  const correctDate = new Date(timestamp);
+  return correctDate.toISOString().slice(0, 19);
+}
+
 export const timeAgo = (timestamp: Date, timeOnly?: boolean): string => {
   if (!timestamp) return "never";
   return `${ms(Date.now() - new Date(timestamp).getTime())}${

@@ -7,6 +7,7 @@ import useMediaQuery from "@/lib/hooks/use-media-query";
 import {checkBookRecord} from "../../../data/queries/yclients/service";
 import {SuccessModal} from "@/components/booking/booking-form/success-modal";
 import {ConfirmCodeModal} from "@/components/booking/booking-form/confirm-code-modal";
+import {isoDateWithoutTimeZone} from "@/lib/utils";
 
 interface IFinalizeFormProps {
   data: IYBasicData;
@@ -47,7 +48,7 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
       id: index,
       services: [it],
       staff_id: selectedMaster,
-      datetime: dateTime,
+      datetime: isoDateWithoutTimeZone(dateTime),
     }))
   }, [selectedServices, selectedMaster, dateTime])
 
@@ -190,7 +191,7 @@ const PersonalData = memo<PersonalDataProps>(({
           <Input
             id={"finalize_phone"}
             type={"tel"}
-            pattern={"+375[0-9]{9}"}
+            pattern={"\\+375[0-9]{9}"}
             value={phone}
             onInput={changeHandle(setPhone)}
             placeholder={"Введите номер телефона"}

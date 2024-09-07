@@ -21,9 +21,28 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
                                                          setShowSuccessModal,
                                                        }) => {
   const [timer, setTimer] = useState(0);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const resendCodeHandler = () => {
+    setTimer(60); // Start 60 seconds timer
+    setIsButtonDisabled(true);
+    sendCode({
+      fullname: requestBody.fullname,
+      phone: requestBody.phone.slice(1),
+    }).then((res) => {
+      if (!res?.success) {
+        setTimer(0);
+        setErrorMessage(res?.meta?.message);
+        throw Error(res?.meta?.message)
+      }
+    }).catch((error: Error) => {
+      console.log(error.message)
+    });
+  }
+
+  // We need to code only when modal renders
   useEffect(() => {
     if (!showModal || timer > 0) return;
     resendCodeHandler();
@@ -50,22 +69,6 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
     };
   }, [timer]);
 
-  const resendCodeHandler = () => {
-    setTimer(60); // Start 60 seconds timer
-    setIsButtonDisabled(true);
-    sendCode({
-      fullname: requestBody.fullname,
-      phone: requestBody.phone.slice(1),
-    }).then((res) => {
-      if (!res?.success) {
-        setTimer(0);
-        throw Error(res?.meta?.message)
-      }
-    }).catch((error: Error) => {
-      console.log(error.message)
-    });
-  }
-
   const authByCodeHandler = (code: string) => {
     authByCode({
       phone: requestBody.phone.slice(1),
@@ -73,6 +76,7 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
       company_id: COMPANY_ID,
     }).then((res) => {
       if (!res?.success) {
+        setErrorMessage(res?.meta?.message);
         throw Error(res?.meta?.message)
       } else {
         localStorage.setItem('userToken', res.data.user_token);
@@ -85,7 +89,7 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
         throw Error(res?.meta?.message)
       } else {
         setShowModal(false);
-        setShowSuccessModal(true);
+        setTimeout(() => setShowSuccessModal(true), 100);
       }
     }).catch((error: Error) => {
       console.log(error.message)
@@ -101,8 +105,17 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
         <div>
           <ConfirmationCodeInput onComplete={authByCodeHandler}/>
         </div>
+        {
+          errorMessage
+            ? (
+              <div className={"text-red-500"}>
+                {errorMessage}
+              </div>
+            )
+            : null
+        }
         <ButtonSolid
-          text={isButtonDisabled ? `Переотправить код через ${timer}s` : "Переотправить код"}
+          text={isButtonDisabled ? `Переотправить код через ${timer}c` : "Переотправить код"}
           clickHandler={resendCodeHandler}
           disabled={isButtonDisabled}
           className={"w-1/2"}

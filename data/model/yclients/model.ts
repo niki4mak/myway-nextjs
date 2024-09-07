@@ -79,7 +79,7 @@ interface IYAppointment {
   id?: number;
   services?: number[];
   staff_id: number;
-  datetime: Date;
+  datetime: string | null;
   custom_fields?: Record<string, string>;
 }
 
