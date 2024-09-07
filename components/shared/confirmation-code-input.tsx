@@ -1,6 +1,6 @@
 "use client"
 
-import React, {ChangeEvent, KeyboardEvent, memo, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useEffect, useRef, useState} from 'react';
 
 interface ConfirmationCodeInputProps {
   length?: number;
@@ -15,9 +15,28 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   // const [isFilled, setIsFilled] = useState(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
+  useEffect(() => {
+    // Handle autofill from the browser
+    const handleAutofill = (e: any) => {
+      const newValue = e.target.value;
+      if (newValue && newValue.length === length) {
+        const newValues = newValue.split('');
+        setValues(newValues);
+        onComplete(newValue);
+      }
+    };
+
+    inputsRef.current[0]?.addEventListener('input', handleAutofill);
+
+    return () => {
+      inputsRef.current[0]?.removeEventListener('input', handleAutofill);
+    };
+  }, [length, onComplete]);
+
   const handleChange = (value: string, index: number) => {
     if (/^[0-9]$/.test(value)) {
       const newValues = [...values];
+
       newValues[index] = value;
       setValues(newValues);
 
@@ -53,7 +72,7 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   };
 
   return (
-    <div style={{display: 'flex', gap: '8px'}}>
+    <form style={{display: 'flex', gap: '8px'}} autoComplete={"one-time-code"}>
       {values.map((value, index) => (
         <input
           key={index}
@@ -63,6 +82,7 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, index)}
           onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e, index)}
           ref={(el) => (inputsRef.current[index] = el)}
+          autoComplete={"one-time-code"}
           className={"text-c-primary bg-c-bg-dark border-2 border-c-primary"}
           style={{
             width: '60px',
@@ -73,7 +93,7 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
           }}
         />
       ))}
-    </div>
+    </form>
   );
 });
 ConfirmationCodeInput.displayName = "ConfirmationCodeInput";

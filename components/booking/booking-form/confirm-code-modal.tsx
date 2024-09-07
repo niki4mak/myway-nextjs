@@ -108,7 +108,7 @@ const ConfirmCodeModal = memo<IConfirmCodeModalProps>(({
         {
           errorMessage
             ? (
-              <div className={"text-red-500"}>
+              <div className={"text-red-500 text-center"}>
                 {errorMessage}
               </div>
             )
