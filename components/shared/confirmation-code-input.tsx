@@ -51,6 +51,15 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
     e.preventDefault();
+
+    // Handle autofill event
+    if (value && /^[0-9]{4}$/.test(value)) {
+      const newValues = value.split('');
+      setValues(newValues);
+      onComplete(value);
+      return;
+    }
+
     if (/^[0-9]$/.test(value)) {
       const newValues = [...values];
 
@@ -66,8 +75,6 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
       if (newValues.every((val) => val !== '')) {
         onComplete(newValues.join(''));
       }
-    } else {
-      return;
     }
   };
 
