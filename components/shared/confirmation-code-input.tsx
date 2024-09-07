@@ -30,7 +30,7 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
       const newValue = e.target.value;
       if (newValue && newValue.length > 1) {
         e.preventDefault();
-        const newValues = newValue.split('');
+        const newValues = newValue.split('').slice(0,4);
         setValues(newValues);
         onComplete(newValue);
       }
