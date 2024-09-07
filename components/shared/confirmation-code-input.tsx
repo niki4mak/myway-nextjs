@@ -24,6 +24,25 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   // const [isFilled, setIsFilled] = useState(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
+  useEffect(() => {
+    // Handle autofill from the browser
+    const handleAutofill = (e: any) => {
+      const newValue = e.target.value;
+      if (newValue && newValue.length > 1) {
+        e.preventDefault();
+        const newValues = newValue.split('');
+        setValues(newValues);
+        onComplete(newValue);
+      }
+    };
+
+    inputsRef.current[0]?.addEventListener('input', handleAutofill);
+
+    return () => {
+      inputsRef.current[0]?.removeEventListener('input', handleAutofill);
+    };
+  }, [length, onComplete]);
+
   const handlePaste: ClipboardEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     const paste = e.clipboardData?.getData('text');
@@ -51,15 +70,6 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
     e.preventDefault();
-
-    // Handle autofill event
-    if (value && /^[0-9]{4}$/.test(value)) {
-      const newValues = value.split('');
-      setValues(newValues);
-      onComplete(value);
-      return;
-    }
-
     if (/^[0-9]$/.test(value)) {
       const newValues = [...values];
 
@@ -75,6 +85,8 @@ const ConfirmationCodeInput = memo<ConfirmationCodeInputProps>(({
       if (newValues.every((val) => val !== '')) {
         onComplete(newValues.join(''));
       }
+    } else {
+      return;
     }
   };
 
