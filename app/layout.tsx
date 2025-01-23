@@ -4,6 +4,8 @@ import cx from "classnames";
 import {inter, julius, montserrat} from "./fonts";
 import Nav from "@/components/layout/nav";
 import {Suspense} from "react";
+import Footer from "@/components/layout/footer";
+
 
 export const metadata = {
   title: "MyWay - стандарты высокого качества - то, чем мы руководствуемся",
@@ -27,7 +29,8 @@ export default async function RootLayout({
     <main className="flex min-h-screen w-full flex-col items-center justify-center bg-c-bg-1">
       {children}
     </main>
-    {/*<Footer />*/}
+    <Footer />
+      
     <Analytics/>
     </body>
     </html>
