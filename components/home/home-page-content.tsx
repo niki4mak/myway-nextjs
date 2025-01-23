@@ -14,8 +14,8 @@ const HomePageContent = memo(() => {
         className={`absolute h-full object-cover object-left z-0`}
         width={3840}
         height={1960}
-        src={"/main/bg-main@2x.png"}
-        alt="Precedent Logo"
+        src={"/main/bg-main-preview.png"}
+        alt="MyWay"
       />
 
       <div className={`w-full ${isMobile ? "" : "ml-[100%]"} flex flex-col items-center gap-2`}>
