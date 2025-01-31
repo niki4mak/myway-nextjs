@@ -68,9 +68,9 @@ const HomePageConcept = memo(() => {
 
             <div className="w-full h-[600px] relative overflow-hidden rounded-80 my-10">
                 <Image
-                    src="/main/interior-4.jpg" // Укажите правильный путь к изображению
+                    src="/main/interior-4.jpg" 
                     alt="Интерьер"
-                    layout="fill" // Задает автоматическое заполнение контейнера
+                    layout="fill" 
                     objectFit="cover" // Обрезает изображение, не сжимая
                     objectPosition="center" // Центрирует изображение
                 />
