@@ -3,12 +3,16 @@
 import {memo} from "react";
 import Image from "next/image";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import { text } from "stream/consumers";
 
 const AboutContent = memo(() => {
   const {isMobile} = useMediaQuery();
 
   return (
     <div className={`relative flex w-full items-center justify-center ${isMobile ? "flex-col" : "pt-32"}`}>
+
+      
+
       <p className={isMobile ? "text-center w-2/3 z-10 py-20" : "text-center w-1/2 z-10"}>
         В самом сердце города расположился уютный и стильный Барбершоп MyWay, ставший настоящим убежищем для
         ценителей классического стиля и качественного сервиса. Здесь каждый клиент погружается в атмосферу настоящего
@@ -24,6 +28,7 @@ const AboutContent = memo(() => {
         <Image className={isMobile ? "h-1/2" : "w-1/2"} src={"/about/about-bg-2.png"} alt={"Background"} width={1920}
                height={1698}/>
       </div>
+
     </div>
   );
 })

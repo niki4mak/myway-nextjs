@@ -14,12 +14,12 @@ const NavLink = memo<INavItem>(({
                                 }) => {
   const pathname = usePathname();
   const isActive = pathname.startsWith(href);
-  const activeClassName = "text-c-primary";
+  const activeClassName = "underline underline-offset-4";
 
   return (
     <Link
       href={href}
-      className={cn("text-c-text-light hover:text-c-primary", isActive && activeClassName)}
+      className={cn("text-black hover:text-opacity-50 transition-all", isActive && activeClassName)}
     >
       {title}
     </Link>

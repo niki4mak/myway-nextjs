@@ -36,19 +36,25 @@ export default function NavBar() {
   return (
     <>
       <div
-        className={"fixed top-0 w-full flex justify-center bg-transparent z-10"}
+        className={"top-0 w-full flex bg-white z-10 py-5 h-[100px]  fixed"}
       >
-        <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between w-full">
-          <Link href="/" className={`flex items-center font-display text-2xl w-[200px] justify-center
-          hover:text-3xl transition-all`}>
-            <p>MY WAY</p>
-          </Link>
+        <div className="mx-5 flex h-16 items-center justify-between w-full">
 
-          <div className={"flex gap-20"}>
-            {navConfig.map(l => <NavLink href={l.href} title={l.title} key={l.href} />)}
+          <div>
+            <Link href="/" className={`flex items-center font-display text-2xl w-[200px] justify-center
+            hover:text-3xl transition-all`}>
+              <p>MY WAY</p>
+            </Link>
           </div>
 
-          <LinkSolid text={"Записаться онлайн"} href={"/booking"} />
+          <div className="flex justify-between gap-7 mx-5">
+            <div className={"flex gap-10 border border-black p-2 rounded-2xl px-10"}>
+              {navConfig.map(l => <NavLink href={l.href} title={l.title} key={l.href} />)}
+            </div>
+
+            <LinkSolid text={"Запись"} href={"/booking"} />
+          </div>
+
         </div>
       </div>
     </>

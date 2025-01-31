@@ -9,21 +9,32 @@ const HomePageContent = memo(() => {
   const {isMobile} = useMediaQuery();
 
   return (
-    <>
+    <div className="w-full min-h-[calc(100vh-100px)] flex items-center justify-center">
+      {/* Фоновое изображение */}
       <Image
-        className={`absolute h-full object-cover object-left z-0`}
-        width={3840}
-        height={1960}
-        src={"/main/bg-main-preview.png"}
+        className="absolute top-[100px] left-0 w-[100vw-40px] px-5 h-[calc(100vh-100px)] object-cover object-left z-0 rounded-80"
+        width={3689}
+        height={0}
+        src="/main/bg-main-test.jpg"
         alt="MyWay"
+        style={{
+          WebkitMaskImage: "linear-gradient(to top, rgba(255,255,255,0) 5%, rgba(255,255,255,1) 45%)",
+          maskImage: "linear-gradient(to top, rgba(255,255,255,0) 5%, rgba(255,255,255,1) 45%)",
+        }}
       />
 
-      <div className={`w-full ${isMobile ? "" : "ml-[100%]"} flex flex-col items-center gap-2`}>
-        <div className={"flex items-center font-display text-6xl justify-center"}>MY WAY</div>
-        <div className={"text-center"}>Уникальный путь  <br/>к твоему образу с My Way!!!</div>
-        {isMobile ? <LinkSolid text={"Записаться онлайн"} href={"/booking"}/> : null}
+      {/* Контент по центру */}
+      <div className="z-10 flex flex-col px-10 justify-center items-center gap-2 text-center">
+        <div className="font-display font-medium text-3xl text-white uppercase">
+          Уникальный путь <br /> к твоему образу с My Way
+        </div>
+        <div className="text-white">
+          Откройте новый уровень стиля с услугами в нашем салоне
+        </div>
+        <LinkSolid text={"Записаться"} href={"/booking"} />
       </div>
-    </>
+    </div>
+
   )
     ;
 });

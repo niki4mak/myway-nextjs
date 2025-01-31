@@ -32,7 +32,7 @@ img {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #FAEFB7;
+        background: #d6d6d6;
         border-radius: 8px;
     }
 

@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ["var(--font-montserrat)", "system-ui", "sans-serif"],
-        default: ["var(--font-inter)", "system-ui", "sans-serif"],
+        default: ["var(--font-manrope)", "system-ui", "sans-serif"],
       },
       colors: {
         'c-bg-dark': '#4F4F4F',
@@ -21,6 +21,9 @@ module.exports = {
         'c-primary-darken': '#FAEFB78C',
         'c-text-light': '#F5F5F5',
         'c-text-dark': '#323131',
+      },
+      borderRadius: {
+        '80': '80px', // Кастомное значение
       },
       animation: {
         // Fade up and down

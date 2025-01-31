@@ -1,7 +1,7 @@
 import "./globals.css";
 import {Analytics} from "@vercel/analytics/react";
 import cx from "classnames";
-import {inter, julius, montserrat} from "./fonts";
+import {inter, julius, montserrat, manrope} from "./fonts";
 import Nav from "@/components/layout/nav";
 import {Suspense} from "react";
 import Footer from "@/components/layout/footer";
@@ -22,11 +22,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body className={cx(inter.variable, julius.variable, montserrat.variable, "text-c-text-light z-1")}>
+    <body className={cx(inter.variable, julius.variable, montserrat.variable, manrope.variable, "text-black z-1")}>
     <Suspense fallback="...">
       <Nav/>
     </Suspense>
-    <main className="flex min-h-screen w-full flex-col items-center justify-center bg-c-bg-1">
+    <main className="flex w-screen flex-col items-center justify-center bg-white pt-[100px]">
       {children}
     </main>
     {/* <Footer /> */}
