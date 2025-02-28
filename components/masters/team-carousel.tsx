@@ -46,31 +46,31 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
   }
 
   return (
-    <div className="w-screen h-[1685px] flex flex-col bg-gradient-to-b from-[#B7B5B5] to-[#F5F5F5] rounded-80">
+    <div className={"w-screen h-[1685px] flex flex-col bg-gradient-to-b from-[#B7B5B5] to-[#F5F5F5] rounded-80"}>
       {/* Карусель мастеров */}
       <motion.section
-        className="w-screen py-16 px-6 flex flex-col md:flex-row items-center justify-between"
+        className={"w-screen py-16 px-6 flex flex-col md:flex-row items-center justify-between"}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
       >
-        <div className="w-full md:w-1/3 text-left">
-          <h2 className="text-6xl font-bold uppercase">КОМАНДА</h2>
-          <p className="text-gray-700 mt-4 max-w-lg">
+        <div className={"w-full md:w-1/3 text-left"}>
+          <h2 className={"text-6xl font-bold uppercase"}>КОМАНДА</h2>
+          <p className={"text-gray-700 mt-4 max-w-lg"}>
             Мы верим, что ключ к успеху — это постоянное развитие и стремление к совершенству, и именно это мы внедряем в нашу работу.
           </p>
 
-          <div className="flex space-x-4 mt-6">
-            <button onClick={prevMaster} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+          <div className={"flex space-x-4 mt-6"}>
+            <button onClick={prevMaster} className={"border border-black p-3 rounded-full hover:bg-black hover:text-white transition"}>
               ←
             </button>
-            <button onClick={nextMaster} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+            <button onClick={nextMaster} className={"border border-black p-3 rounded-full hover:bg-black hover:text-white transition"}>
               →
             </button>
           </div>
         </div>
 
         {/* Контейнер с 3 мастерами */}
-        <div className="w-full md:w-2/3 flex items-center justify-start h-[500px] overflow-hidden relative gap-4">
+        <div className={"w-full md:w-2/3 flex items-center justify-start h-[500px] overflow-hidden relative gap-4"}>
           <AnimatePresence>
             {masters.slice(index, index + 3).map((master, i) => {
               const isActive = i === 0; // Активный мастер всегда слева
@@ -92,13 +92,13 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                   className={`relative w-[260px] h-[400px] md:w-[300px] md:h-[500px] rounded-xl shadow-lg overflow-hidden`}
                 >
-                  <div className="w-full h-full">
+                  <div className={"w-full h-full"}>
                     <Image
                       src={master.photoUrl}
                       alt={master.name}
                       width={300}
                       height={400}
-                      className="object-cover rounded-lg"
+                      className={"object-cover rounded-lg"}
                     />
                   </div>
                 </motion.div>
@@ -110,16 +110,16 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
 
       {/* Отображение работ активного мастера */}
       <motion.section
-        className="w-screen py-16 px-6 flex flex-col md:flex-row items-center justify-between"
+        className={"w-screen py-16 px-6 flex flex-col md:flex-row items-center justify-between"}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
       >
         {/* Левая часть (категории и кнопки) */}
-        <div className="w-full md:w-1/3 text-left mb-6">
-          <h2 className="text-6xl font-bold uppercase">Работы мастера</h2>
+        <div className={"w-full md:w-1/3 text-left mb-6"}>
+          <h2 className={"text-6xl font-bold uppercase"}>Работы мастера</h2>
 
           {/* Категории */}
-          <div className="flex space-x-4 mt-6 mb-6">
+          <div className={"flex space-x-4 mt-6 mb-6"}>
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -134,18 +134,18 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
           </div>
 
           {/* Кнопки для переключения работ */}
-          <div className="flex space-x-4">
-            <button onClick={prevWork} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+          <div className={"flex space-x-4"}>
+            <button onClick={prevWork} className={"border border-black p-3 rounded-full hover:bg-black hover:text-white transition"}>
               ←
             </button>
-            <button onClick={nextWork} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+            <button onClick={nextWork} className={"border border-black p-3 rounded-full hover:bg-black hover:text-white transition"}>
               →
             </button>
           </div>
         </div>
 
         {/* Правая часть (карусель работ мастера) */}
-        <div className="w-full md:w-2/3 flex flex-row items-center h-[500px] overflow-hidden relative">
+        <div className={"w-full md:w-2/3 flex flex-row items-center h-[500px] overflow-hidden relative"}>
           {/* Работы активного мастера */}
           <AnimatePresence>
             {visibleWorks.map((work: Work, i: number) => {
@@ -169,7 +169,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                     alt={work.description} 
                     width={400}
                     height={500}
-                    className="w-full h-full object-cover rounded-xl"
+                    className={"w-full h-full object-cover rounded-xl"}
                   />
                 </motion.div>
               );

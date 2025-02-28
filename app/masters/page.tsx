@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import ImagesSlider from "@/components/shared/images-slider/images-slider";
 import TeamCarousel from "@/components/masters/team-carousel";
-import MasterWorks from "@/components/masters/master-works";
 
 export default async function Masters() {
   /* const masters = await prisma.master.findMany();
