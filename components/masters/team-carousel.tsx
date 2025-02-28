@@ -166,7 +166,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                 >
                   <Image
                     src={work.photoUrl}
-                    alt={work.description}
+                    alt={work.description} 
                     width={400}
                     height={500}
                     className="w-full h-full object-cover rounded-xl"
