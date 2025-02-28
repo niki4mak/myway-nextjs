@@ -14,7 +14,7 @@ datasource db {
 model Master {
   id                     Int        @id @default(autoincrement())
   rank                   Rank       @default(EXPERT)
-  works                  Work[]     @relation("MasterWorks")
+  works                  Work[]     @relation("MasterWorks")  // Добавляем обратную связь
   photoUrl               String
   name                   String
   surname                String
@@ -26,6 +26,16 @@ model Master {
   rankId                 Int
 }
 
+model Work {
+  id          Int      @id @default(autoincrement())
+  category    Category @relation(fields: [categoryId], references: [id])
+  photoUrl    String
+  description String
+  master      Master   @relation("MasterWorks", fields: [masterId], references: [id]) // Добавили связь
+  masterId    Int  // Добавили поле masterId для связи
+  categoryId  Int
+}
+
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
@@ -33,15 +43,6 @@ model Category {
   masters  Master[]  @relation("MasterCategories")
   services Service[] @relation("ServiceCategories")
   Work     Work[]
-}
-
-model Work {
-  id          Int      @id @default(autoincrement())
-  category    Category @relation(fields: [categoryId], references: [id])
-  photoUrl    String
-  description String
-  master      Master[] @relation("MasterWorks")
-  categoryId  Int
 }
 
 model Service {
@@ -68,3 +69,4 @@ enum Rank {
   SENIOR_EXPERT
   AMBASSADOR
 }
+
