@@ -22,6 +22,6 @@ export default async function Works() {
   );
 
   return (
-    <AllWorks allWorks={allWorks} />
+      <AllWorks allWorks={allWorks} />
   );
 }

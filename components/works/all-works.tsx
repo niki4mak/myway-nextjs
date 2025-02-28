@@ -27,9 +27,9 @@ const AllWorks = memo<AllWorksProps>(({
   )?.works?.map(w => w.photoUrl);
 
   return (
-    <div className={"relative h-screen"}>
+    <div className={"relative h-[calc(100vh-100px)]"}>
       <div className={"h-full"}>
-        {works ? <ImagesScroll imagesUrls={works} /> : null }
+        {works ? <ImagesScroll key={selectedId} imagesUrls={works} /> : null }
       </div>
       <SelectCategory
         categories={categories}
