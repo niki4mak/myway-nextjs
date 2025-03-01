@@ -3,7 +3,6 @@ import ButtonTransparent from "@/components/shared/button/button-transparent";
 import Link from "next/link";
 
 export default async function Entry() {
-  // redirect('/home');
   return (
     <div className={"w-screen h-screen top-0 left-0 grid grid-cols-2"}>
       <Link href={"/home"} className={"relative h-full w-full flex items-center justify-center transition-all bg-black hover:bg-transparent"}>
