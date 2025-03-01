@@ -8,7 +8,8 @@
 }
 
 *:focus {
-    border-color: #F5F5F5 !important;
+    border-color: #4c4c4c !important;
+    outline: none;
 }
 
 body {

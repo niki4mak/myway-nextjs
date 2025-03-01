@@ -25,7 +25,7 @@ const ServiceForm = memo<ServiceFormProps>(({
   const [tabIndex, setTabIndex] = useState(0);
   const {isMobile} = useMediaQuery();
 
-  const tabActiveClassname = "border-b-c-primary border-b-[2px]"
+  const tabActiveClassname = "border-b-2 border-black focus:outline-none"
   const panelClassName = `h-[90%] py-4 flex flex-col gap-4 overflow-auto ${isSelecting ? "" : "p-4"}`;
 
   const YCategories = YCategoriesWithServices?.category;
