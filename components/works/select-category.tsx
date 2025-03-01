@@ -16,8 +16,8 @@ const SelectCategory = memo<SelectCategoryProps>(({
                                                   }) => {
   return categories ? (
     <select
-      className="absolute text-c-primary bottom-2 left-5 bg-[url('/icons/arrow-down.svg')]
-      appearance-none border-none rounded px-4 py-2 pr-10 bg-transparent focus:ring-0"
+      className="absolute text-c-text-light bottom-5 left-5 bg-[url('/icons/arrow-down.svg')]
+      appearance-none border border-c-text-light rounded-80 px-4 py-2 pr-10 bg-transparent"
       value={selected}
       onChange={(e) => setSelected(+e.target.value)}
     >
