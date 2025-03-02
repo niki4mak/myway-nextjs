@@ -27,8 +27,8 @@ export const navConfig: INavItem[] = [
     title: "Услуги",
   },
   {
-    href: "/about",
-    title: "О нас",
+    href: "/academy",
+    title: "Академия",
   },
 ]
 
