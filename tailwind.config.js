@@ -17,7 +17,7 @@ module.exports = {
         'c-bg-1': '#444444',
         'c-bg-2': '#595959',
         'c-bg-3': '#B1B1B1',
-        'c-primary': '#FAEFB7',
+        'c-primary': '000000',
         'c-primary-darken': '#FAEFB78C',
         'c-text-light': '#F5F5F5',
         'c-text-dark': '#323131',

@@ -16,7 +16,7 @@ const BurgerMenu = memo(() => {
   const closeMenu = useCallback(() => setOpen(false), [setOpen])
 
   return (
-    <div className={"fixed pt-4 top-0 w-full flex justify-between px-4 bg-transparent z-10"}>
+    <div className={"fixed pt-4 top-0 w-full flex justify-between px-4 bg-white z-10"}>
       <Link href="/" className={`flex items-center font-display text-2xl`}>
         <p>MY WAY</p>
       </Link>
@@ -49,7 +49,7 @@ const SideDrawer = memo<SideDrawerProps>(({
     const ref = useRef(null);
 
     const containerClasses = "absolute top-0 right-[-70dvw] rounded-bl-2xl rounded-l-2xl" +
-        " h-screen w-[70dvw] bg-c-bg-2 p-4 flex flex-col gap-4 transition-all";
+        " h-screen w-[70dvw] bg-gray-200 p-4 flex flex-col gap-4 transition-all";
     const openClasses = "!right-0";
 
     useRouteChange(closeMenu);
@@ -74,7 +74,9 @@ const SideDrawer = memo<SideDrawerProps>(({
                 </div>
                 <div className={"flex flex-col gap-2"}>
                     {navConfig.map((l) => <NavLink href={l.href} title={l.title} key={l.href}/>)}
-                    <NavLink title={"Записаться онлайн"} href={"/booking"}/>
+                    <div className='border bg-white rounded-80 w-fit px-1'>
+                      <NavLink title={"Записаться онлайн"} href={"/booking"}/>
+                    </div>
                 </div>
             </div>
         </>
