@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Master, Work } from "@prisma/client";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import useMediaQuery from "@/lib/hooks/use-media-query";
 
 const categories = ["Стрижки", "Окрашивания", "Химия"];
 
@@ -15,6 +16,10 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
   const [index, setIndex] = useState(0); // Индекс активного мастера
   const [category, setCategory] = useState(categories[0]); // Категория работ
   const [workIndex, setWorkIndex] = useState(0); // Индекс текущего набора работ
+
+  const { isMobile } = useMediaQuery();
+  const visibleMastersCount = isMobile ? 2 : 3; // для мастеров
+  const visibleWorksCount = isMobile ? 2 : 3;   // для работ
 
   const activeMaster = masters[index];
   const nextIndex = (index + 1) % masters.length;
@@ -38,10 +43,16 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
     setWorkIndex((prev) => (prev - 1 + filteredWorks.length) % filteredWorks.length);
   };
 
-  // Отображаем только 3 работы
-  const visibleWorks = filteredWorks.slice(workIndex, workIndex + 3);
-  if (filteredWorks.length < 3) {
-    visibleWorks.push(...filteredWorks.slice(0, 3 - filteredWorks.length));
+  // Отображаем только visibleWorksCount работ
+  const visibleWorks = filteredWorks.slice(workIndex, workIndex + visibleWorksCount);
+  if (filteredWorks.length < visibleWorksCount) {
+    visibleWorks.push(...filteredWorks.slice(0, visibleWorksCount - filteredWorks.length));
+  }
+
+  // Отображаем только visibleMastersCount мастеров
+  const visibleMasters = masters.slice(index, index + visibleMastersCount);
+  if (masters.slice(index, index + visibleMastersCount).length < visibleMastersCount) {
+    visibleMasters.push(...masters.slice(0, visibleMastersCount - masters.slice(index, index + visibleMastersCount).length));
   }
 
   return (
@@ -73,10 +84,10 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
           </div>
         </div>
 
-        {/* Контейнер с 3 мастерами */}
+        {/* Контейнер с мастерами */}
         <div className="w-full md:w-2/3 flex items-center justify-start h-[500px] overflow-hidden relative gap-4">
           <AnimatePresence>
-            {masters.slice(index, index + 3).map((master, i) => {
+            {visibleMasters.map((master, i) => {
               const isActive = i === 0; // Активный мастер всегда слева
               const cardOpacity = isActive ? 1 : 0.5;
               const cardScale = isActive ? 1.0 : 0.9;
@@ -97,7 +108,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                   className="relative w-[260px] h-[400px] md:w-[300px] md:h-[500px] rounded-xl shadow-lg overflow-hidden border-2"
                 >
                   <div className="flex flex-col h-full">
-                    {/* Верхняя часть: изображение занимает 70% высоты */}
+                    {/* Верхняя часть: изображение занимает 70% */}
                     <div className="w-full h-[70%]">
                       <Image
                         src={master.photoUrl}
@@ -107,8 +118,8 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                         className="object-cover rounded-t-lg"
                       />
                     </div>
-                    {/* Нижняя часть: белый блок занимает 30% высоты */}
-                    <div className="w-full h-[30%] p-4 rounded-b-xl shadow-md bg-white flex flex-col justify-center">
+                    {/* Нижняя часть: блок с информацией занимает 30% */}
+                    <div className="w-full h-[30%] p-4 bg-white rounded-b-xl shadow-md flex flex-col justify-center">
                       <h3 className="text-xl font-semibold">
                         {master.name} {master.surname}
                       </h3>
@@ -131,7 +142,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
       >
-        {/* Левая часть (категории и кнопки) */}
+        {/* Левая часть: категории и кнопки для работ */}
         <div className="w-full md:w-1/3 text-left mb-6">
           <h2 className="text-6xl font-bold uppercase">Работы мастера</h2>
           {/* Категории */}
@@ -165,7 +176,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
           </div>
         </div>
 
-        {/* Правая часть (карусель работ мастера) */}
+        {/* Правая часть: карусель работ мастера */}
         <div className="w-full md:w-2/3 flex flex-row items-center h-[500px] overflow-hidden relative">
           <AnimatePresence>
             {visibleWorks.map((work: Work, i: number) => {
