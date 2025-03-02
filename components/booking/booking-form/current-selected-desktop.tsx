@@ -27,8 +27,8 @@ const CurrentSelectedDesktop = memo<CurrentSelectedDesktopProps>(({
       {selectedMaster ? <PersonCard master={data.masters.find(m => m.id === selectedMaster)}/> : null}
       {selectedServices.length
         ? <div className={""}>
-          <div className={""}>Выбранные услуги:</div>
-          <div className={"flex flex-col gap-2 text-c-primary"}>
+          <div className={"font-semibold mb-2"}>Выбранные услуги:</div>
+          <div className={"flex flex-col gap-2 text-c-primary border-c-bg-dark bg-c-bg-1 rounded-2xl px-5 py-2"}>
             {selectedServices.map(s1 => {
                 const s = data.services.services.find(it => it.id === s1);
 
@@ -46,12 +46,12 @@ const CurrentSelectedDesktop = memo<CurrentSelectedDesktopProps>(({
       {dateTime
         ? (
           <div>
-            <div className={""}>Выбранный сеанс:</div>
-            <div className={"text-c-primary"}>
-              <div className={"text-xl"}>
+            <div className={"font-semibold mb-2"}>Выбранный сеанс:</div>
+            <div className={"text-c-primary border-c-bg-dark bg-c-bg-1 rounded-2xl px-5 py-2"}>
+              <div className={""}>
                 {dateTime?.toLocaleDateString("ru-RU")}
               </div>
-              <div className={"text-2xl"}>
+              <div className={""}>
                 {dateTime?.toTimeString().slice(0, 5)}
               </div>
             </div>

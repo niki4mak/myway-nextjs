@@ -22,8 +22,8 @@ const PersonCard = memo<IPersonCardProps>(({
     };
 
   const isSelected = selectedMaster === master?.id;
-  const containerClassName = "bg-[url('/icons/card-rectangle.svg')] bg-cover text-left text-c-bg-3 " +
-    "bg-center bg-no-repeat flex justify-between items-center rounded-3xl border border-transparent";
+  const containerClassName = "bg-c-bg-1 bg-cover text-left text-c-bg-3 " +
+    "bg-center bg-no-repeat flex gap-4 items-center rounded-3xl border border-transparent";
 
   const disabled = master?.bookable === false;
 
@@ -33,25 +33,25 @@ const PersonCard = memo<IPersonCardProps>(({
       className={cn(containerClassName, isSelected && "border-c-primary", disabled && "opacity-50")}
       onClick={handleSelect}
     >
-      <div className={"flex flex-col items-end p-4"}>
-        <div className={"w-full font-bold text-c-text-light text-xl"}>{master?.name}</div>
-        <div className={""}>{master?.specialization}</div>
-        <div className={"flex gap-1 w-full"}>
-          <Image src="/icons/star.svg" alt="star" width={16} height={16}/>
-          <div>{master?.rating}</div>
-        </div>
-        <div className={"w-full"}>{`${master?.comments_count} отзывов`}</div>
-      </div>
-      <div className={"w-[135px]"}>
-        <div className={"bg-c-bg-1 w-full h-0.8"}/>
+      <div className={"pl-2 w-[105px]"}>
         <Image
-          className={"h-full rounded-xl"}
+          className={"w-full object-cover rounded-xl"}
           src={master?.avatar || "/person-card.png"}
           width={640}
           height={640}
           alt={"Person"}
         />
       </div>
+      <div className={"flex flex-col items-end p-4"}>
+        <div className={"w-full font-semibold text-c-text-dark text-xl"}>{master?.name}</div>
+        <div className={""}>{master?.specialization}</div>
+        <div className={"flex gap-1 w-full"}>
+          <Image src="/icons/star-346.svg" alt="star" width={16} height={16}/>
+          <div>{master?.rating}</div>
+        </div>
+        <div className={"w-full"}>{`${master?.comments_count} отзывов`}</div>
+      </div>
+      
     </button>
   );
 })

@@ -49,7 +49,7 @@ const SideDrawer = memo<SideDrawerProps>(({
     const ref = useRef(null);
 
     const containerClasses = "absolute top-0 right-[-70dvw] rounded-bl-2xl rounded-l-2xl" +
-        " h-screen w-[70dvw] bg-gray-200 p-4 flex flex-col gap-4 transition-all";
+        " h-screen w-[70dvw] bg-c-bg-1 p-4 flex flex-col gap-4 transition-all";
     const openClasses = "!right-0";
 
     useRouteChange(closeMenu);

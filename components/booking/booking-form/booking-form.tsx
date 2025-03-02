@@ -27,9 +27,9 @@ const BookingForm = memo<IBookingFormProps>(({
   const [tabIndex, setTabIndex] = useState(0);
   const [isFinalize, setFinalize] = useState(false);
 
-  const tabClassname = "bg-c-bg-dark rounded-[50px] h-[48px] grid place-content-center";
-  const tabDisabledClassname = "opacity-[0.4]";
-  const tabActiveClassname = "bg-c-primary-darken border-b-c-primary border-b-[3px]";
+  const tabClassname = " h-[48px] grid place-content-center uppercase  border-c-bg-1 border-x";
+  const tabDisabledClassname = " uppercase opacity-[0.4]";
+  const tabActiveClassname = "font-medium bg-c-bg-1 border-b-c-primary border-b-[3px] uppercase";
   const panelClassName = `w-full overflow-auto p-4`;
 
   const [currentDates, setCurrentDates] = useState<IYDatesResponse | null>(null);
@@ -92,7 +92,7 @@ const BookingForm = memo<IBookingFormProps>(({
           selectedTabClassName={tabActiveClassname}
           selectedTabPanelClassName={panelClassName}
         >
-          <TabList className={"grid grid-flow-col auto-cols-[1fr] text-center gap-4"}>
+          <TabList className={"grid grid-flow-col auto-cols-[1fr] text-center "}>
             <Tab className={tabClassname}>
               Специалисты
             </Tab>
