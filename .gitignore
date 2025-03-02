@@ -9,13 +9,8 @@
 /coverage
 
 # next.js
+/.next/
 /out/
-/.next/*
-!.next/static/
-!.next/static/css/
-!.next/static/css/app/
-!.next/static/css/app/booking/
-!.next/static/css/app/booking/page.css
 
 # production
 /build
