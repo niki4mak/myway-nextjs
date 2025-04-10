@@ -8,13 +8,13 @@
 }
 
 *:focus {
-    border-color: #4c4c4c !important;
+    border-color: #4c4c4c !important; 
     outline: none;
 }
 
 body {
     font-family: var(--font-montserrat);
-}
+} 
 
 img {
     pointer-events: none;

@@ -89,6 +89,35 @@ const ServiceForm = memo<ServiceFormProps>(({
         }
         {TabPanels}
       </Tabs>
+
+      {/* // Блок с простым списком категорий с минимальной ценой
+      <div className="mt-8 px-4">
+        <h3 className="text-2xl font-bold mb-2">Все категории</h3>
+        <ul className="list-disc pl-6">
+          {YCategories ? (
+            YCategories.map(c => {
+              // Вычисляем минимальную цену для категории
+              const prices = YServices
+                .filter(s => s.category_id === c.id)
+                .map(s => s.price_min);
+              const minPrice = prices.length ? Math.min(...prices) : null;
+              return (
+                <li key={c.id} className="text-lg">
+                  {c.title} {minPrice !== null && <span>от {minPrice} руб</span>}
+                </li>
+              );
+            })
+          ) : (
+            categoriesWithServices?.map(c => (
+              <li key={c.id} className="text-lg">
+                {c.name} {c.min_price && <span>от {c.min_price} руб</span>}
+              </li>
+            ))
+          )}
+        </ul>
+      </div> */}
+
+
     </div>
   );
 })
