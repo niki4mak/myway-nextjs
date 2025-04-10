@@ -4,7 +4,10 @@ import AllWorks from "@/components/works/all-works";
 export default async function Works() {
   const allWorksGroups = await prisma.work.groupBy({
     by: ['categoryId'],
-  })
+  orderBy: {
+    categoryId: 'asc'
+  }
+  });
 
   const allWorks = await Promise.all(
     allWorksGroups.map(async g => ({
