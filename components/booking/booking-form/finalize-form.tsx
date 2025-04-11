@@ -122,7 +122,7 @@ const FinalizeForm = memo<IFinalizeFormProps>(({
             <textarea
               id={"finalize_comment"}
               value={comment}
-              className={"bg-transparent border border-c-text-light rounded-[10px] text-c-text-light h-[150px] px-4"}
+              className={"bg-transparent border border-c-text-light rounded-[10px] text-c-bg-dark h-[150px] px-4"}
               onInput={(event: ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value)}
               placeholder={"Введите комментарий..."}
             />
@@ -173,7 +173,7 @@ const PersonalData = memo<PersonalDataProps>(({
   return (
     <div>
       <div className={"flex flex-col gap-4"}>
-        <div className={"flex flex-col gap-2"}>
+        <div className={"flex flex-col gap-2 "}>
           <label htmlFor="finalize_name">
             Имя <span className={"text-xxl text-red-500"}>*</span>
           </label>
