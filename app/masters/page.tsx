@@ -11,7 +11,11 @@ export default async function Masters() {
 
   const masters = await prisma.master.findMany({
     include: {
-      works: true, // Подключаем работы мастера
+      works: {
+        include: {
+          category: true, // Подтягиваем данные категории
+        },
+      },
     },
   });
 

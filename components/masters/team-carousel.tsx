@@ -1,58 +1,81 @@
 "use client";
 
-import { useState } from "react";
-import { Master, Work } from "@prisma/client";
+import { useState, useEffect } from "react";
+import { Master, Work, Category } from "@prisma/client";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 
-const categories = ["Стрижки", "Окрашивания", "Химия"];
-
 interface TeamCarouselProps {
-  masters: (Master & { works: Work[] })[]; // Мастера с их работами
+  masters: (Master & { works: (Work & { category: Category })[] })[]; // мастера с работами, у каждой работы есть категория
 }
 
 export default function TeamCarousel({ masters }: TeamCarouselProps) {
-  const [index, setIndex] = useState(0); // Индекс активного мастера
-  const [category, setCategory] = useState(categories[0]); // Категория работ
-  const [workIndex, setWorkIndex] = useState(0); // Индекс текущего набора работ
-
   const { isMobile } = useMediaQuery();
-  const visibleMastersCount = isMobile ? 2 : 3; // для мастеров
-  const visibleWorksCount = isMobile ? 2 : 3;   // для работ
+  const [index, setIndex] = useState(0); // индекс активного мастера
+  const [workIndex, setWorkIndex] = useState(0); // индекс текущего набора работ
 
   const activeMaster = masters[index];
-  const nextIndex = (index + 1) % masters.length;
-  const prevIndex = (index - 1 + masters.length) % masters.length;
+
+  // Вычисляем уникальные категории для активного мастера
+  const availableCategories = Array.from(
+    new Map(
+      activeMaster.works.map((work) => [work.category.id, work.category])
+    ).values()
+  ).sort((a, b) => a.id - b.id);
+
+  // Если у мастера есть категории, выбираем автоматически ту, у которой наименьший id
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (availableCategories.length > 0) {
+      // Выбираем минимальный id из доступных категорий
+      const minCategoryId = availableCategories.reduce(
+        (min, cat) => (cat.id < min ? cat.id : min),
+        availableCategories[0].id
+      );
+      setSelectedCategoryId(minCategoryId);
+      setWorkIndex(0);
+    } else {
+      setSelectedCategoryId(null);
+    }
+  }, [activeMaster]); // при смене мастера вычисляем заново
 
   // Фильтруем работы активного мастера по выбранной категории
-  const filteredWorks = activeMaster.works.filter((work: Work) => {
-    return work.categoryId === categories.indexOf(category) + 1;
-  });
+  const filteredWorks = activeMaster.works.filter(
+    (work) => work.category.id === selectedCategoryId
+  );
 
-  // Переключение мастеров в карусели
+  // Настройка количества видимых элементов
+  const visibleMastersCount = isMobile ? 2 : 3;
+  const visibleWorksCount = isMobile ? 2 : 3;
+
+  // Логика переключения мастеров (бесконечная карусель)
+  const nextIndex = (index + 1) % masters.length;
+  const prevIndex = (index - 1 + masters.length) % masters.length;
   const nextMaster = () => setIndex(nextIndex);
   const prevMaster = () => setIndex(prevIndex);
 
-  // Переключение работ активного мастера (бесконечная карусель)
+  // Переключение работ (НЕ бесконечная карусель):
   const nextWork = () => {
-    setWorkIndex((prev) => (prev + 1) % filteredWorks.length);
+    if (workIndex < filteredWorks.length - 1) {
+      setWorkIndex(prev => prev + 1);
+    }
   };
-
   const prevWork = () => {
-    setWorkIndex((prev) => (prev - 1 + filteredWorks.length) % filteredWorks.length);
+    if (workIndex > 0) {
+      setWorkIndex(prev => prev - 1);
+    }
   };
 
-  // Отображаем только visibleWorksCount работ
   const visibleWorks = filteredWorks.slice(workIndex, workIndex + visibleWorksCount);
-  if (filteredWorks.length < visibleWorksCount) {
-    visibleWorks.push(...filteredWorks.slice(0, visibleWorksCount - filteredWorks.length));
-  }
 
-  // Отображаем только visibleMastersCount мастеров
+  // Для мастеров оставляем ту же бесконечную карусель
   const visibleMasters = masters.slice(index, index + visibleMastersCount);
   if (masters.slice(index, index + visibleMastersCount).length < visibleMastersCount) {
-    visibleMasters.push(...masters.slice(0, visibleMastersCount - masters.slice(index, index + visibleMastersCount).length));
+    visibleMasters.push(
+      ...masters.slice(0, visibleMastersCount - masters.slice(index, index + visibleMastersCount).length)
+    );
   }
 
   return (
@@ -69,16 +92,10 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
             Мы верим, что ключ к успеху — это постоянное развитие и стремление к совершенству, и именно это мы внедряем в нашу работу.
           </p>
           <div className="flex space-x-4 mt-6">
-            <button
-              onClick={prevMaster}
-              className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
-            >
+            <button onClick={prevMaster} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
               ←
             </button>
-            <button
-              onClick={nextMaster}
-              className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
-            >
+            <button onClick={nextMaster} className="w-32 border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
               →
             </button>
           </div>
@@ -88,12 +105,11 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
         <div className="w-full md:w-2/3 flex items-center justify-start h-[500px] overflow-hidden relative gap-4">
           <AnimatePresence>
             {visibleMasters.map((master, i) => {
-              const isActive = i === 0; // Активный мастер всегда слева
+              const isActive = i === 0;
               const cardOpacity = isActive ? 1 : 0.5;
               const cardScale = isActive ? 1.0 : 0.9;
               const blurEffect = isActive ? "blur(0px)" : "blur(3px)";
               const translateX = isActive ? 0 : i === 1 ? "translate-x-[100%]" : "-translate-x-[100%]";
-
               return (
                 <motion.div
                   key={`${master.id}-${i}`}
@@ -108,7 +124,6 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                   className="relative w-[260px] h-[400px] md:w-[300px] md:h-[500px] rounded-xl shadow-lg overflow-hidden border-2"
                 >
                   <div className="flex flex-col h-full">
-                    {/* Верхняя часть: изображение занимает 70% */}
                     <div className="w-full h-[70%]">
                       <Image
                         src={master.photoUrl}
@@ -118,7 +133,6 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                         className="object-cover rounded-t-lg"
                       />
                     </div>
-                    {/* Нижняя часть: блок с информацией занимает 30% */}
                     <div className="w-full h-[30%] p-4 bg-white rounded-b-xl shadow-md flex flex-col justify-center">
                       <h3 className="text-xl font-semibold">
                         {master.name} {master.surname}
@@ -142,41 +156,44 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
       >
-        {/* Левая часть: категории и кнопки для работ */}
+        {/* Левая часть: Категории и переключатели работ */}
         <div className="w-full md:w-1/3 text-left mb-6">
           <h2 className="text-6xl font-bold uppercase">Работы мастера</h2>
-          {/* Категории */}
+          {/* Вывод категорий - если мастеру есть хоть одна работа в категории, выбирается автоматически минимальный id */}
           <div className="flex space-x-4 mt-6 mb-6">
-            {categories.map((cat) => (
+            {availableCategories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setCategory(cat)}
+                key={cat.id}
+                onClick={() => {
+                  setSelectedCategoryId(cat.id);
+                  setWorkIndex(0);
+                }}
                 className={`px-4 py-2 border rounded-full ${
-                  category === cat ? "bg-black text-white" : "hover:bg-gray-200"
+                  selectedCategoryId === cat.id ? "bg-black text-white" : "hover:bg-gray-200"
                 } transition`}
               >
-                {cat}
+                {cat.name}
               </button>
             ))}
           </div>
-          {/* Кнопки для переключения работ */}
           <div className="flex space-x-4">
             <button
               onClick={prevWork}
+              disabled={workIndex === 0}
               className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
             >
               ←
             </button>
             <button
               onClick={nextWork}
-              className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
+              disabled={workIndex >= filteredWorks.length - 1}
+              className="border w-32 border-black p-3 rounded-full hover:bg-black hover:text-white transition"
             >
               →
             </button>
           </div>
         </div>
-
-        {/* Правая часть: карусель работ мастера */}
+        {/* Правая часть: Карусель работ */}
         <div className="w-full md:w-2/3 flex flex-row items-center h-[500px] overflow-hidden relative">
           <AnimatePresence>
             {visibleWorks.map((work: Work, i: number) => {
