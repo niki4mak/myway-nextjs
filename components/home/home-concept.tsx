@@ -55,7 +55,7 @@ const HomePageConcept = memo(() => {
                 </p>
             </div>
   
-            <div className="flex w-full h-[345px] gap-5 justify-around">
+            <div className="flex w-full h-[345px] gap-5 justify-between">
               <Image src="/main/interior-1.png" alt="Интерьер 1" width={230} height={345} className="rounded-lg" />
               <Image src="/main/interior-2.png" alt="Интерьер 2" width={230} height={345} className=" rounded-lg" />
               <Image src="/main/interior-3.png" alt="Интерьер 3" width={572} height={345} className="rounded-lg hidden md:block" />
@@ -84,7 +84,7 @@ const HomePageConcept = memo(() => {
                 </p>
             </div>
   
-            <div className="flex w-full h-[345px] gap-5 justify-around">
+            <div className="flex w-full h-[345px] gap-5 justify-between">
               <Image src="/main/interior-1.png" alt="Интерьер 1" width={230} height={345} className="rounded-lg" />
               <Image src="/main/interior-2.png" alt="Интерьер 2" width={230} height={345} className=" rounded-lg" />
               <Image src="/main/interior-3.png" alt="Интерьер 3" width={572} height={345} className="rounded-lg hidden md:block" />
