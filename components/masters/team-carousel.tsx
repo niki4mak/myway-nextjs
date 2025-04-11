@@ -124,7 +124,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                   className="relative w-[260px] h-[400px] md:w-[300px] md:h-[500px] rounded-xl shadow-lg overflow-hidden border-2"
                 >
                   <div className="flex flex-col h-full">
-                    <div className="w-full h-[70%]">
+                    <div className="w-full h-[60%] md:h-[70%]">
                       <Image
                         src={master.photoUrl}
                         alt={master.name}
@@ -133,7 +133,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                         className="object-cover rounded-t-lg"
                       />
                     </div>
-                    <div className="w-full h-[30%] p-4 bg-white rounded-b-xl shadow-md flex flex-col justify-center">
+                    <div className="w-full h-[40%] md:h-[30%] p-4 bg-white rounded-b-xl shadow-md flex flex-col justify-center">
                       <h3 className="text-xl font-semibold">
                         {master.name} {master.surname}
                       </h3>
@@ -152,7 +152,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
 
       {/* Отображение работ активного мастера */}
       <motion.section
-        className="w-screen py-16 px-6 flex flex-col md:flex-row items-center justify-between"
+        className="w-screen md:py-16 px-6 flex flex-col md:flex-row items-center justify-between"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.8 } }}
       >
