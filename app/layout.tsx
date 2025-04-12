@@ -36,7 +36,7 @@ export default async function RootLayout({
         <main className="flex w-screen flex-col items-center justify-center bg-white pt-0 md:pt-[100px]">
           {children}
         </main>
-        {/* <Footer /> */}
+        
         <Analytics />
       </body>
     </html>

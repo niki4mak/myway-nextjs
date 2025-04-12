@@ -5,13 +5,15 @@ import { Master, Work, Category } from "@prisma/client";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import useMediaQuery from "@/lib/hooks/use-media-query";
+import { useRouter } from "next/navigation";
 
 interface TeamCarouselProps {
-  masters: (Master & { works: (Work & { category: Category })[] })[]; // мастера с работами, у каждой работы есть категория
+  masters: (Master & { works: (Work & { category: Category })[] })[]; // мастера с их работами, у каждой работы есть категория
 }
 
 export default function TeamCarousel({ masters }: TeamCarouselProps) {
   const { isMobile } = useMediaQuery();
+  const router = useRouter();
   const [index, setIndex] = useState(0); // индекс активного мастера
   const [workIndex, setWorkIndex] = useState(0); // индекс текущего набора работ
 
@@ -92,10 +94,16 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
             Мы верим, что ключ к успеху — это постоянное развитие и стремление к совершенству, и именно это мы внедряем в нашу работу.
           </p>
           <div className="flex space-x-4 mt-6">
-            <button onClick={prevMaster} className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+            <button
+              onClick={prevMaster}
+              className="border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
+            >
               ←
             </button>
-            <button onClick={nextMaster} className="w-32 border border-black p-3 rounded-full hover:bg-black hover:text-white transition">
+            <button
+              onClick={nextMaster}
+              className="w-32 border border-black p-3 rounded-full hover:bg-black hover:text-white transition"
+            >
               →
             </button>
           </div>
@@ -138,7 +146,10 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
                         {master.name} {master.surname}
                       </h3>
                       <p className="text-sm text-gray-600">{master.description}</p>
-                      <button className="mt-4 px-6 py-2 bg-black text-white rounded-full hover:bg-gray-800">
+                      <button
+                        onClick={() => router.push("/booking")}
+                        className="mt-4 px-6 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition"
+                      >
                         Записаться
                       </button>
                     </div>
@@ -159,7 +170,7 @@ export default function TeamCarousel({ masters }: TeamCarouselProps) {
         {/* Левая часть: Категории и переключатели работ */}
         <div className="w-full md:w-1/3 text-left mb-6">
           <h2 className="text-6xl font-bold uppercase">Работы мастера</h2>
-          {/* Вывод категорий - если мастеру есть хоть одна работа в категории, выбирается автоматически минимальный id */}
+          {/* Выводим доступные категории у активного мастера */}
           <div className="flex space-x-4 mt-6 mb-6">
             {availableCategories.map((cat) => (
               <button
