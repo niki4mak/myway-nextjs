@@ -10,7 +10,7 @@ export const metadata = {
   title: "MyWay - стандарты высокого качества - то, чем мы руководствуемся",
   description:
     "Правильные стрижки. Мы шли к этому несколько лет, это наша основа.",
-  metadataBase: new URL("https://myway-nextjs.vercel.app/"),
+  metadataBase: new URL("https://myway-navy.vercel.app/"),
   themeColor: "#FFF",
 };
 

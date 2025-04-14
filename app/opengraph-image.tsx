@@ -26,7 +26,7 @@ export default async function OG() {
         }}
       >
         <img
-          src={`https://${process.env.VERCEL_URL || "myway-nextjs.vercel.app"}/logo.png`}
+          src={`https://${process.env.VERCEL_URL || "myway-navy.vercel.app"}/logo.png`}
           alt="MyWay Logo"
           // tw="w-20 h-20 mb-4 opacity-95"
         />
