@@ -20,7 +20,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="5LNgd4fChudhkyG96OcpgFpWPjr8nHduVpbR7FYDLYs"
+        />
+      </head>
       <body
         className={cx(
           inter.variable,

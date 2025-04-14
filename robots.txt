@@ -1,4 +1,4 @@
-Sitemap: https://myway-nextjs.vercel.app/sitemap.xml
+Sitemap: https://myway-navy.vercel.app/sitemap.xml
 
 User-agent: *
 Disallow: /api
