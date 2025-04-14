@@ -16,6 +16,10 @@ const HomePageConcept = memo(() => {
           width={670}
           height={850}
           className="absolute top-0 right-0 w-[250px] md:w-[670px] h-[850px] z-0"
+          style={{
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(255,255,255,0) 5%, rgba(255,255,255,1) 45%)",
+            maskImage: "linear-gradient(to bottom, rgba(255,255,255,0) 5%, rgba(255,255,255,1) 45%)",
+          }}
         />
         <Image
           src="/main/bg-left-rock.png"
@@ -64,8 +68,6 @@ const HomePageConcept = memo(() => {
             <p className="text-gray-700 mt-6 max-w-lg">
               Использование дерева и камня в отделке придаёт пространству тёплое и органичное ощущение, напоминая о природе.
             </p>
-          </div>
-
             <div className="w-full h-[600px] relative overflow-hidden rounded-80 my-10">
                 <Image
                     src="/main/interior-4.jpg" 
@@ -75,6 +77,9 @@ const HomePageConcept = memo(() => {
                     objectPosition="center" // Центрирует изображение
                 />
             </div>
+          </div>
+
+            
 
             <div className="flex w-full flex-col gap-10 px-10">
             <div className="flex flex-col items-end text-right">
