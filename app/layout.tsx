@@ -9,8 +9,8 @@ import Footer from "@/components/layout/footer";
 export const metadata = {
   title: "MyWay - стандарты высокого качества - то, чем мы руководствуемся",
   description:
-    "Правильные стрижки. Мы шли к этому несколько лет, это наша основа.",
-  metadataBase: new URL("https://myway-navy.vercel.app/"),
+    "Салон красоты MyWay. Уникальный путь к твоему образу с My Way.",
+  metadataBase: new URL("https://myway-navy.vercel.app/home"),
   themeColor: "#FFF",
 };
 

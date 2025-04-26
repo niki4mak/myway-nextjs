@@ -45,7 +45,7 @@ export default function Footer() {
         {/* Центральная колонка: время работы */}
         <div className="flex flex-col items-center gap-2">
           <h3 className="text-base font-semibold uppercase">Время работы</h3>
-          <div className="text-sm">Пн - Вс 09:00 – 22:00</div>
+          <div className="text-sm">Пн - Вс 09:00 – 21:00</div>
         </div>
 
         {/* Правая колонка: навигация */}
