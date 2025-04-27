@@ -11,18 +11,17 @@ interface Service {
 }
 
 const servicesData: Service[] = [
-  { title: "Мужская стрижка", priceMin: 25, priceMax: 25 },
-  { title: "Удаление волос воском", priceMin: 3, priceMax: 5 },
-  { title: "Камуфлирование контуров головы", priceMin: 5, priceMax: 20 },
-  { title: "Укладка (без стрижки)", priceMin: 5, priceMax: 5 },
-  { title: "Стрижка друг+друг", priceMin: 40, priceMax: 40 },
-  { title: "Стрижка отец+сын", priceMin: 40, priceMax: 40 },
-  { title: "Стрижка три друга", priceMin: 63, priceMax: 63 },
-  { title: "Стрижка бороды и усов", priceMin: 18, priceMax: 18 },
-  { title: "Камуфлирование контуров бороды", priceMin: 5, priceMax: 20 },
-  { title: "Мужская стрижка+борода/усы", priceMin: 35, priceMax: 35 },
-  { title: "Мужская стрижка+SPA-процедуры", priceMin: 35, priceMax: 35 },
-  { title: "SPA-процедуры", priceMin: 12, priceMax: 12 },
+  { title: "Мужская стрижка", priceMin: 30, priceMax: 45 },
+  { title: "Женская стрижка", priceMin: 35, priceMax: 60 },
+  { title: "Окрашивание", priceMin: 70, priceMax: 350 },
+  { title: "Маникюр", priceMin: 25, priceMax: 65 },
+  { title: "Перманентный макияж", priceMin: 150, priceMax: 150 },
+  { title: "Наращивание ресниц", priceMin: 50, priceMax: 65 },
+  { title: "Ревитализация", priceMin: 70, priceMax: 100 },
+  { title: "Стрижка бороды и усов", priceMin: 20, priceMax: 35 },
+  { title: "Камуфлирование контуров бороды", priceMin: 5, priceMax: 28 },
+  { title: "Мужская стрижка+борода/усы", priceMin: 65, priceMax: 65 },
+  { title: "Мужская стрижка+SPA-процедуры", priceMin: 40, priceMax: 60 },
 ];
 
 const ServicesAndPrices = () => {
